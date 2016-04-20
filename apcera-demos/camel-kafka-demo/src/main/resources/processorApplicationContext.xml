@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+       ">
+    <!--  
+    <bean id="connection" class="org.nats.client.Connection"/>
+   
+	<bean id="natsComponent" class="com.logi.camel.NatsComponent">
+    	<property name="natsConnection" ref="connection"/>
+	</bean>
+	-->
+
+	<bean id="myProcessor" class="com.logi.camel.MyProcessor" init-method="start"/>
+	
+<camelContext xmlns="http://camel.apache.org/schema/spring">
+  <route>
+    <from uri="netty4:tcp://0.0.0.0:9999?textline=true&amp;sync=false&amp;delimiter=LINE&amp;synchronous=false"/>
+    <setHeader headerName="THREAD_NAME">
+      <simple>${threadName}</simple>
+    </setHeader>
+    <bean ref="myProcessor" method="process"/>
+    <to uri="kafka:192.168.0.120:9092,192.168.0.121:9092?topic=replicated-devices&amp;producerType=async&amp;     serializerClass=kafka.serializer.StringEncoder&amp;partitioner=com.logi.camel.SimplePartitioner"/>
+  </route>
+</camelContext>
+
+</beans>
