@@ -5,7 +5,7 @@
   <groupId>com.logi.camel</groupId>
   <artifactId>camel-nats-demo</artifactId>
   <version>1.0</version>
-  <name>tcp_fat_jar</name>
+  <name>camel-nats-demo</name>
   <dependencies>
     <dependency>
       <groupId>io.nats</groupId>
