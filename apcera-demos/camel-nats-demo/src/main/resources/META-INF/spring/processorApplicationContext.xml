@@ -18,9 +18,9 @@
 
 	<bean id="tracer" class="com.logi.camel.Tracer" init-method="start"/>
 	<bean id="inputMessageConverter" class="com.logi.camel.InputMessageConverter"/>
+
 	
-		
-<camelContext xmlns="http://camel.apache.org/schema/spring">
+	<camelContext xmlns="http://camel.apache.org/schema/spring">
   <route>
     <from uri="netty4:tcp://127.0.0.1:9999?textline=true&amp;sync=false&amp;delimiter=LINE&amp;synchronous=false"/>
     <setHeader headerName="THREAD_NAME">
@@ -29,7 +29,6 @@
     </setHeader>
     <bean ref="inputMessageConverter" method="convert"/>
     <bean ref="tracer" method="trace"/>
-    <log message="Logger: ${body}"/>    
     <to uri="nats://localhost:4222?topic=MeterQueue"/>
   </route>
 </camelContext>
