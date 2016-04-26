@@ -10,25 +10,26 @@
     
     <properties>
     	<java.version>1.8</java.version>
+    	<spark.version>1.6.1</spark.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_2.10</artifactId>
-            <version>1.4.1</version>
+            <version>${spark.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-streaming_2.10</artifactId>
-			<version>1.4.1</version>
+			<version>${spark.version}</version>
 			<scope>provided</scope>
 		</dependency>	
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-streaming-kafka_2.10</artifactId>
-			<version>1.4.1</version>
+			<version>${spark.version}</version>
 		</dependency>	
 		<dependency>
 		    <groupId>io.nats</groupId>
