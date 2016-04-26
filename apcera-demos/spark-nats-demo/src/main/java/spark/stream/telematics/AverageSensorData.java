@@ -73,9 +73,9 @@ public abstract class AverageSensorData {
 
 		JavaStreamingContext ssc = new JavaStreamingContext(sparkConf, Durations.seconds(2));
 
-		JavaPairInputDStream<String, String> directKafkaStream = getStackStream(ssc);  
+		JavaPairInputDStream<String, String> stackStream = getStackStream(ssc);  
 
-		JavaPairDStream<String, AvgCount> avgCounts = computeAvgFromStream(directKafkaStream);
+		JavaPairDStream<String, AvgCount> avgCounts = computeAvgFromStream(stackStream);
 
 		avgCounts.print();
 
@@ -87,12 +87,12 @@ public abstract class AverageSensorData {
 	}
 
 	/**
-	 * @param directKafkaStream
+	 * @param stackStream
 	 * @return
 	 */
-	protected JavaPairDStream<String, AvgCount> computeAvgFromStream(JavaPairInputDStream<String, String> directKafkaStream) {
+	protected JavaPairDStream<String, AvgCount> computeAvgFromStream(JavaPairInputDStream<String, String> stackStream) {
 		// Get the lines, split them into words, count the words and print
-		JavaDStream<String> messages = directKafkaStream.map(
+		JavaDStream<String> messages = stackStream.map(
 				new Function<Tuple2<String, String>, String>() {
 					@Override
 					public String call(Tuple2<String, String> tuple2) {
