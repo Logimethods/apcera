@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import scala.Tuple2;
-import kafka.SendToKafkaActionExecutionFunction;
 import kafka.serializer.StringDecoder;
 
 import org.apache.commons.collections.IteratorUtils;

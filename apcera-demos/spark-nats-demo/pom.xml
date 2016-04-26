@@ -25,7 +25,12 @@
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-streaming-kafka_2.10</artifactId>
 			<version>1.4.1</version>
-		</dependency>		
+		</dependency>	
+		<dependency>
+		    <groupId>io.nats</groupId>
+		    <artifactId>jnats</artifactId>
+		    <version>0.4.1</version>
+    	</dependency> 	
     </dependencies>
     <build>
         <plugins>
