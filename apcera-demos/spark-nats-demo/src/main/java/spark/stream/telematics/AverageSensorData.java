@@ -1,29 +1,28 @@
 package spark.stream.telematics;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
+import java.util.Iterator;
 import java.util.regex.Pattern;
-
-import scala.Tuple2;
-import kafka.serializer.StringDecoder;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.spark.HashPartitioner;
 import org.apache.spark.SparkConf;
-import org.apache.spark.api.java.function.*;
-import org.apache.spark.streaming.api.java.*;
-import org.apache.spark.streaming.kafka.KafkaUtils;
+import org.apache.spark.api.java.function.FlatMapFunction;
+import org.apache.spark.api.java.function.Function;
+import org.apache.spark.api.java.function.Function2;
+import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.streaming.Durations;
+import org.apache.spark.streaming.api.java.JavaDStream;
+import org.apache.spark.streaming.api.java.JavaPairDStream;
+import org.apache.spark.streaming.api.java.JavaPairInputDStream;
+import org.apache.spark.streaming.api.java.JavaStreamingContext;
 
-//import com.google.common.collect.Lists;
+import scala.Tuple2;
 
 @SuppressWarnings("serial")
-public class AverageSensorData {
+public abstract class AverageSensorData {
 
 	private static final Pattern SPACE = Pattern.compile(" "); 
 	private static final Pattern EQ = Pattern.compile("=");
@@ -64,15 +63,17 @@ public class AverageSensorData {
 	
 	AvgCount initial = new AvgCount(0,0);
 
-	public static void main(String[] args) throws Exception{
-
+	/**
+	 * 
+	 */
+	protected void processStream() {
 		//Create the context with a 1 second batch size
 		SparkConf sparkConf = new SparkConf().setAppName("JavaNetworkWordCount").setMaster("spark://192.168.1.1:7077");
 		//SparkConf sparkConf = new SparkConf().setAppName("JavaNetworkWordCount").setMaster("local[2]");
 
 		JavaStreamingContext ssc = new JavaStreamingContext(sparkConf, Durations.seconds(2));
 
-		JavaPairInputDStream<String, String> directKafkaStream = getKafkaStream(ssc);  
+		JavaPairInputDStream<String, String> directKafkaStream = getStackStream(ssc);  
 
 		JavaPairDStream<String, AvgCount> avgCounts = computeAvgFromStream(directKafkaStream);
 
@@ -89,8 +90,7 @@ public class AverageSensorData {
 	 * @param directKafkaStream
 	 * @return
 	 */
-	protected static JavaPairDStream<String, AvgCount> computeAvgFromStream(
-			JavaPairInputDStream<String, String> directKafkaStream) {
+	protected JavaPairDStream<String, AvgCount> computeAvgFromStream(JavaPairInputDStream<String, String> directKafkaStream) {
 		// Get the lines, split them into words, count the words and print
 		JavaDStream<String> messages = directKafkaStream.map(
 				new Function<Tuple2<String, String>, String>() {
@@ -137,18 +137,6 @@ public class AverageSensorData {
 	 * @param ssc
 	 * @return
 	 */
-	protected static JavaPairInputDStream<String, String> getKafkaStream(JavaStreamingContext ssc) {
-		Map<String, String> kafkaParams = new HashMap<>();
-		kafkaParams.put("metadata.broker.list", "192.168.0.120:9092,192.168.0.121:9092");
-		//kafkaParams.put("metadata.broker.list", "192.168.0.120:9092");
-
-		HashSet<String> topicsSet = new HashSet<>(Arrays.asList("replicated-devices"));
-
-		JavaPairInputDStream<String, String> directKafkaStream = 
-				KafkaUtils.createDirectStream(ssc, String.class, String.class, 
-						StringDecoder.class, StringDecoder.class, kafkaParams, topicsSet);
-		return directKafkaStream;
-	}
-
+	abstract protected JavaPairInputDStream<String, String> getStackStream(JavaStreamingContext ssc);
 }
 
