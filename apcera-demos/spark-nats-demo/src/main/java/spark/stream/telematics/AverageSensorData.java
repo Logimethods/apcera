@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import scala.Tuple2;
 import kafka.serializer.StringDecoder;
+import nats.NatsReceiver;
 
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.spark.HashPartitioner;
@@ -67,44 +68,24 @@ public class AverageSensorData {
 public static void main(String[] args) throws Exception{
 
 	    //Create the context with a 1 second batch size
-	    SparkConf sparkConf = new SparkConf().setAppName("JavaNetworkWordCount").setMaster("spark://192.168.1.1:7077");
-	    //SparkConf sparkConf = new SparkConf().setAppName("JavaNetworkWordCount").setMaster("local[2]");
+	   // SparkConf sparkConf = new SparkConf().setAppName("JavaNetworkWordCount").setMaster("spark://192.168.1.1:7077");
+	    SparkConf sparkConf = new SparkConf().setAppName("JavaNetworkWordCount").setMaster("local[2]");
 
 	    JavaStreamingContext ssc = new JavaStreamingContext(sparkConf, Durations.seconds(2));
 	    
-	    Map<String, String> kafkaParams = new HashMap<>();
-	    kafkaParams.put("metadata.broker.list", "192.168.0.120:9092,192.168.0.121:9092");
-	    //kafkaParams.put("metadata.broker.list", "192.168.0.120:9092");
+	    JavaReceiverInputDStream<String> messages = ssc.receiverStream(
+	    		new NatsReceiver("localhost", 4222, "MeterQueue", "MyGroup"));
 	    
-	    HashSet<String> topicsSet = new HashSet<>(Arrays.asList("replicated-devices"));
-
-	    JavaPairInputDStream<String, String> directKafkaStream = 
-	    	     KafkaUtils.createDirectStream(ssc, String.class, String.class, 
-	    	    		 StringDecoder.class, StringDecoder.class, kafkaParams, topicsSet);  
-
-	      
-	    // Get the lines, split them into words, count the words and print
-	    JavaDStream<String> messages = directKafkaStream.map(
-	    		new Function<Tuple2<String, String>, String>() {
-	    				@Override
-	    				public String call(Tuple2<String, String> tuple2) {
-	    					System.out.println("tuple2:" + tuple2._2());
-	    					System.out.println("tuple1:" + tuple2._1());
-	    					return tuple2._2();
-	    				}
-	    			}
-	    		);
-	    
+	   
 	    
 	    JavaDStream<String> words = messages.flatMap(new FlatMapFunction<String, String>() {
 	      @Override
 	      public Iterable<String> call(String x) {
 	    	  System.out.println("Message to split:" + x);
-	        //return Lists.newArrayList(SPACE.split(x));
-	    	  String[] strArray = SPACE.split(x);
-	    	  ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(strArray));
-	    	  Iterator<String> myIterator = arrayList.iterator();
-	    	  return IteratorUtils.toList(myIterator);
+	    	  String[] test = new String[2];
+	    	  test[0] = "Volatage=100";
+	    	  test[1] = "id=1";
+	    	  return Arrays.asList(test);    	
 	      }
 	    });
 	    
@@ -114,6 +95,7 @@ public static void main(String[] args) throws Exception{
 	      @Override
 	      public Tuple2<String, Integer> call(String s) {
 	    	//Split string which is like: "Temperature=25"
+	    	System.out.println("Message to split by = : " + s);
 	    	String[] measure = EQ.split(s);
 	    	int value = Integer.parseInt(measure[1]);
 	        return new Tuple2<String, Integer>(measure[0], value);
@@ -121,7 +103,7 @@ public static void main(String[] args) throws Exception{
 	    });	    
 
 	    JavaPairDStream<String, AvgCount> avgCounts =
-	    		wordsPaired.combineByKey(createAcc, addAndCount, combine, new HashPartitioner(3));
+	    		wordsPaired.combineByKey(createAcc, addAndCount, combine, new HashPartitioner(1));
 	    
 	    avgCounts.print();
 	
