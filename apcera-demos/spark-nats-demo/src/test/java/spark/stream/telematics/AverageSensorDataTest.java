@@ -16,12 +16,14 @@ import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.VoidFunction;
 import org.apache.spark.streaming.Duration;
 import org.apache.spark.streaming.Time;
+import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaPairInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.junit.Test;
 
 import scala.Tuple2;
 import spark.stream.Helpers;
+import spark.stream.telematics.AverageSensorData.AvgCount;
 
 /**
  * @author laugimethods
@@ -56,6 +58,9 @@ public class AverageSensorDataTest {
 		Time time = new Time(4000);
 //		System.out.println(stackStream.compute(time).collect());
 		assertEquals(2, stackStream.compute(time).count());
+		
+		JavaPairDStream<String, AvgCount> avgCounts = AverageSensorData.computeAvgFromStream(stackStream);
+//		System.out.println(avgCounts.compute(time).collect());
 	}
 
 }

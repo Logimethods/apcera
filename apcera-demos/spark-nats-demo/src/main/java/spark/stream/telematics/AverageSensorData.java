@@ -90,7 +90,7 @@ public abstract class AverageSensorData {
 	 * @param stackStream
 	 * @return
 	 */
-	protected JavaPairDStream<String, AvgCount> computeAvgFromStream(JavaPairInputDStream<String, String> stackStream) {
+	protected static JavaPairDStream<String, AvgCount> computeAvgFromStream(JavaPairInputDStream<String, String> stackStream) {
 		// Get the lines, split them into words, count the words and print
 		JavaDStream<String> messages = stackStream.map(
 				new Function<Tuple2<String, String>, String>() {
