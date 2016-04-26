@@ -32,7 +32,8 @@ public class AverageSensorDataTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		JavaStreamingContext ssc = new JavaStreamingContext(new SparkConf().setAppName("Spark Streaming Test"), new Duration(2));
+		SparkConf sparkConf = new SparkConf().setAppName("My Spark Job").setMaster("local");
+		JavaStreamingContext ssc = new JavaStreamingContext(sparkConf.setAppName("Spark Streaming Test"), new Duration(2));
 		// @see http://apache-spark-user-list.1001560.n3.nabble.com/Creating-in-memory-JavaPairInputDStream-for-testing-td23956.html
 		Tuple2<String, String> tupple = new Tuple2<String, String>("1", "112"); 
 		List<Tuple2<String, String>> list = new LinkedList<Tuple2<String, String>>(); 
