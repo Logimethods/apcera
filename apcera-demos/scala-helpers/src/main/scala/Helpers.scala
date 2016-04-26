@@ -9,6 +9,7 @@ import org.apache.spark.streaming.dstream.ConstantInputDStream;
 object Helpers { 
   def createJavaPairInputDStream(jssc: JavaStreamingContext, 
                                        pair: JavaRDD[(String, String)]) = { 
-    new JavaPairInputDStream(new ConstantInputDStream(jssc.ssc, pair.rdd)) 
+//    new JavaPairInputDStream(new ConstantInputDStream(jssc.ssc, pair.rdd)) 
+    new JavaPairInputDStream(new ConstantInputDStream(jssc.ssc, pair)) 
   } 
 } 
