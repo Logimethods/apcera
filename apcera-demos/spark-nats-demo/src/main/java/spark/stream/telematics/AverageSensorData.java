@@ -72,17 +72,25 @@ public class AverageSensorData {
 
 		JavaStreamingContext ssc = new JavaStreamingContext(sparkConf, Durations.seconds(2));
 
-		Map<String, String> kafkaParams = new HashMap<>();
-		kafkaParams.put("metadata.broker.list", "192.168.0.120:9092,192.168.0.121:9092");
-		//kafkaParams.put("metadata.broker.list", "192.168.0.120:9092");
+		JavaPairInputDStream<String, String> directKafkaStream = getKafkaStream(ssc);  
 
-		HashSet<String> topicsSet = new HashSet<>(Arrays.asList("replicated-devices"));
+		JavaPairDStream<String, AvgCount> avgCounts = computeAvgFromStream(directKafkaStream);
 
-		JavaPairInputDStream<String, String> directKafkaStream = 
-				KafkaUtils.createDirectStream(ssc, String.class, String.class, 
-						StringDecoder.class, StringDecoder.class, kafkaParams, topicsSet);  
+		avgCounts.print();
 
+		//avgCounts.foreachRDD(new SendToKafkaActionExecutionFunction("192.168.0.120:9092,192.168.0.121:9092"));
+		//avgCounts.foreachRDD(new SendToKafkaActionExecutionFunction("192.168.0.120:9092"));
 
+		ssc.start();
+		ssc.awaitTermination();
+	}
+
+	/**
+	 * @param directKafkaStream
+	 * @return
+	 */
+	protected static JavaPairDStream<String, AvgCount> computeAvgFromStream(
+			JavaPairInputDStream<String, String> directKafkaStream) {
 		// Get the lines, split them into words, count the words and print
 		JavaDStream<String> messages = directKafkaStream.map(
 				new Function<Tuple2<String, String>, String>() {
@@ -122,16 +130,24 @@ public class AverageSensorData {
 
 		JavaPairDStream<String, AvgCount> avgCounts =
 				wordsPaired.combineByKey(createAcc, addAndCount, combine, new HashPartitioner(3));
+		return avgCounts;
+	}
 
-		avgCounts.print();
+	/**
+	 * @param ssc
+	 * @return
+	 */
+	protected static JavaPairInputDStream<String, String> getKafkaStream(JavaStreamingContext ssc) {
+		Map<String, String> kafkaParams = new HashMap<>();
+		kafkaParams.put("metadata.broker.list", "192.168.0.120:9092,192.168.0.121:9092");
+		//kafkaParams.put("metadata.broker.list", "192.168.0.120:9092");
 
-		//avgCounts.foreachRDD(new SendToKafkaActionExecutionFunction("192.168.0.120:9092,192.168.0.121:9092"));
-		//avgCounts.foreachRDD(new SendToKafkaActionExecutionFunction("192.168.0.120:9092"));
+		HashSet<String> topicsSet = new HashSet<>(Arrays.asList("replicated-devices"));
 
-
-		ssc.start();
-		ssc.awaitTermination();
-
+		JavaPairInputDStream<String, String> directKafkaStream = 
+				KafkaUtils.createDirectStream(ssc, String.class, String.class, 
+						StringDecoder.class, StringDecoder.class, kafkaParams, topicsSet);
+		return directKafkaStream;
 	}
 
 }
