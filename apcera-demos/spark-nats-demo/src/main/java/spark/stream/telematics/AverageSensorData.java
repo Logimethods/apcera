@@ -103,7 +103,7 @@ public abstract class AverageSensorData {
 				new Function<Tuple2<String, Integer>, Boolean>() {
 					@Override
 					public Boolean call(Tuple2<String, Integer> tuple) {
-						return tuple._2() > OFF_LIMIT_VOLTAGE;
+						return tuple._2() >= OFF_LIMIT_VOLTAGE;
 					}
 				}
 				);
@@ -133,7 +133,7 @@ public abstract class AverageSensorData {
 						new Function<Tuple2<String, Tuple2<Integer, Integer>>, Boolean>() {
 							@Override
 							public Boolean call(Tuple2<String, Tuple2<Integer, Integer>> tuple) throws Exception {
-								return tuple._2()._2() > OFF_LIMIT_VOLTAGE_COUNT;
+								return tuple._2()._2() >= OFF_LIMIT_VOLTAGE_COUNT;
 							}
 						}
 						);
