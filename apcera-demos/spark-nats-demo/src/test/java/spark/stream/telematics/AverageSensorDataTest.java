@@ -106,7 +106,6 @@ public class AverageSensorDataTest {
 			
 		    ssc.start();
 		    Thread.sleep(3000);					
-		    ssc.stop();
 		} finally {
 			ssc.stop();
 		}
