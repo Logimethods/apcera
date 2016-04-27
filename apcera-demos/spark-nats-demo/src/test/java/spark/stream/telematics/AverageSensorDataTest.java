@@ -88,6 +88,22 @@ public class AverageSensorDataTest {
 			JavaPairDStream<String, Tuple2<Integer, Integer>> alerts = AverageSensorData.computeAlertFromStream(stackStream);
 			alerts.print();
 			
+			alerts.foreachRDD(new VoidFunction<JavaPairRDD<String, Tuple2<Integer, Integer>>>() {
+				@Override
+				public void call(JavaPairRDD<String, Tuple2<Integer, Integer>> rdd) throws Exception {
+					List<Tuple2<String, Tuple2<Integer, Integer>>> alertsList = rdd.collect();
+					assertEquals(1, alertsList.size());
+					Tuple2<String, Tuple2<Integer, Integer>> alert = alertsList.get(0);
+					// (2,(125,4))
+					String id = alert._1();
+					final Integer maximum = alert._2()._1();
+					final Integer nb = alert._2()._2();
+					assertEquals("2", id);
+					assertTrue("Max: " + maximum, 125 == maximum);
+					assertTrue("Nb: " + nb, 4 == nb);
+				}				
+			});
+			
 		    ssc.start();
 		    Thread.sleep(3000);					
 		    ssc.stop();
