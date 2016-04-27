@@ -35,6 +35,7 @@ public class AverageSensorDataTest {
 	 * Test method for {@link spark.stream.telematics.AverageSensorData#computeAvgFromStream(org.apache.spark.streaming.api.java.JavaPairInputDStream)}.
 	 * @throws InterruptedException 
 	 */
+	@SuppressWarnings("serial")
 	@Test
 	public void testComputeAvgFromStream() throws InterruptedException {
 //		SparkConf sparkConf = new SparkConf().setAppName("My Spark Job").setMaster("local");
@@ -62,11 +63,33 @@ public class AverageSensorDataTest {
 			JavaPairDStream<String, AvgCount> avgCounts = AverageSensorData.computeAvgFromStream(stackStream);
 			avgCounts.print();
 			
+			avgCounts.foreachRDD(new VoidFunction<JavaPairRDD<String, AvgCount>>() {
+				@Override
+				public void call(JavaPairRDD<String, AvgCount> rdd) throws Exception {
+					final List<Tuple2<String, AvgCount>> avgList = rdd.collect();
+					assertEquals(2, avgList.size());
+					Tuple2<String, AvgCount> avgA = avgList.get(0);
+					Tuple2<String, AvgCount> avgB = avgList.get(1);
+					Tuple2<String, AvgCount> avg1, avg2;
+					if (avgA._1().equals("1")){
+						avg1 = avgA;
+						avg2 = avgB;
+					} else {
+						avg1 = avgB;
+						avg2 = avgA;						
+					}
+					assertEquals(array1.length, avg1._2().num_);
+					assertEquals(array2.length, avg2._2().num_);
+					
+					assertEquals(112 + 124 + 115 +114, avg1._2().total_);
+				}				
+			});
+			
 			JavaPairDStream<String, Tuple2<Integer, Integer>> alerts = AverageSensorData.computeAlertFromStream(stackStream);
 			alerts.print();
 			
 		    ssc.start();
-		    Thread.sleep(5000);					
+		    Thread.sleep(3000);					
 		    ssc.stop();
 		} finally {
 			ssc.stop();
