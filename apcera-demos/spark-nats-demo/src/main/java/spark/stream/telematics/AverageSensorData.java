@@ -45,10 +45,9 @@ public abstract class AverageSensorData {
 	 * 
 	 */
 	protected void processStream() {
-		//Create the context with a 1 second batch size
-		SparkConf sparkConf = new SparkConf().setAppName("JavaNetworkWordCount").setMaster("spark://192.168.1.1:7077");
-		//SparkConf sparkConf = new SparkConf().setAppName("JavaNetworkWordCount").setMaster("local[2]");
+		SparkConf sparkConf = getSparkConf();
 
+		//Create the context with a 2 second batch size
 		JavaStreamingContext ssc = new JavaStreamingContext(sparkConf, Durations.seconds(2));
 
 		JavaPairInputDStream<String, String> stackStream = getStackStream(ssc);  
@@ -61,6 +60,14 @@ public abstract class AverageSensorData {
 
 		ssc.start();
 		ssc.awaitTermination();
+	}
+
+	/**
+	 * @return
+	 */
+	protected SparkConf getSparkConf() {
+		return new SparkConf().setAppName("JavaNetworkWordCount").setMaster("spark://192.168.1.1:7077");
+		//SparkConf sparkConf = new SparkConf().setAppName("JavaNetworkWordCount").setMaster("local[2]");
 	}
 
 	/**
