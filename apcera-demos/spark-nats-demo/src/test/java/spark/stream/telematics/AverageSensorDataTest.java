@@ -42,18 +42,28 @@ public class AverageSensorDataTest {
 		try {
 			// @see http://apache-spark-user-list.1001560.n3.nabble.com/Creating-in-memory-JavaPairInputDStream-for-testing-td23956.html
 			List<Tuple2<String, String>> list = new LinkedList<Tuple2<String, String>>();
-			Tuple2<String, String> tupple = new Tuple2<String, String>("1", "112");
-			list.add(tupple);
-			tupple = new Tuple2<String, String>("1", "115");
-			list.add(tupple);
-			tupple = new Tuple2<String, String>("2", "123");
-			list.add(tupple);
+			Tuple2<String, String> tupple;
+			
+			String[] array1 = {"112", "124", "115", "114"};
+			for (String str: array1){
+				tupple = new Tuple2<String, String>("1", str);
+				list.add(tupple);
+			}
+
+			String[] array2 = {"112", "124", "125", "122", "121"};
+			for (String str: array2){
+				tupple = new Tuple2<String, String>("2", str);
+				list.add(tupple);
+			}
+
 			JavaRDD<Tuple2<String, String>> rdd = ssc.sparkContext().parallelize(list);
 			JavaPairInputDStream<String, String> stackStream = Helpers.createJavaPairInputDStream(ssc, rdd);
 		    
 			JavaPairDStream<String, AvgCount> avgCounts = AverageSensorData.computeAvgFromStream(stackStream);
-
 			avgCounts.print();
+			
+			JavaPairDStream<String, Tuple2<Integer, Integer>> alerts = AverageSensorData.computeAlertFromStream(stackStream);
+			alerts.print();
 			
 		    ssc.start();
 		    Thread.sleep(5000);					
