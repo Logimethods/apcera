@@ -46,7 +46,8 @@
 		  <groupId>org.sparkexamples</groupId>
   		  <artifactId>scala-helpers</artifactId>
   		  <version>0.0.1-SNAPSHOT</version>
-  		  <scope>test</scope>
+  		  <scope>system</scope>
+  		  <systemPath>${project.basedir}/libs/scala-helpers-0.0.1-SNAPSHOT.jar</systemPath>
 		</dependency>	
     </dependencies>
     <build>
