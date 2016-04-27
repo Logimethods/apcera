@@ -56,7 +56,7 @@ public abstract class AverageSensorData {
 		JavaPairDStream<String, AvgCount> avgCounts = computeAvgFromStream(stackStream);
 		avgCounts.print();
 
-		JavaPairDStream<String, Tuple2<Integer, Integer>> alerts = AverageSensorData.computeAlertFromStream(stackStream);
+		JavaPairDStream<String, Tuple2<Integer, Integer>> alerts = computeAlertFromStream(stackStream);
 		alerts.print();
 
 		//avgCounts.foreachRDD(new SendToKafkaActionExecutionFunction("192.168.0.120:9092,192.168.0.121:9092"));
