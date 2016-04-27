@@ -42,9 +42,11 @@ public class AverageSensorDataTest {
 		try {
 			// @see http://apache-spark-user-list.1001560.n3.nabble.com/Creating-in-memory-JavaPairInputDStream-for-testing-td23956.html
 			List<Tuple2<String, String>> list = new LinkedList<Tuple2<String, String>>();
-			Tuple2<String, String> tupple = new Tuple2<String, String>("1", "Temperature=25");
+			Tuple2<String, String> tupple = new Tuple2<String, String>("1", "112");
 			list.add(tupple);
-			tupple = new Tuple2<String, String>("1", "Temperature=25");
+			tupple = new Tuple2<String, String>("1", "115");
+			list.add(tupple);
+			tupple = new Tuple2<String, String>("2", "123");
 			list.add(tupple);
 			JavaRDD<Tuple2<String, String>> rdd = ssc.sparkContext().parallelize(list);
 			JavaPairInputDStream<String, String> stackStream = Helpers.createJavaPairInputDStream(ssc, rdd);
