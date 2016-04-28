@@ -9,9 +9,12 @@ import javax.script.ScriptException;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.Function2;
+import org.apache.spark.api.java.function.PairFlatMapFunction;
+import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.streaming.Durations;
 import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaPairInputDStream;
+import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 
 import scala.Tuple2;
@@ -54,7 +57,7 @@ public abstract class AverageSensorData {
 		//Create the context with a 2 second batch size
 		JavaStreamingContext ssc = new JavaStreamingContext(sparkConf, Durations.seconds(2));
 
-		JavaPairInputDStream<String, String> stackStream = getStackStream(ssc);  
+		JavaPairDStream<String, String> stackStream = getStackStream(ssc);  
 
 		JavaPairDStream<String, AvgCount> avgCounts = computeAvgFromStream(stackStream);
 		avgCountsExport(avgCounts);
@@ -95,7 +98,7 @@ public abstract class AverageSensorData {
 	 * @param stackStream
 	 * @return
 	 */
-	protected static JavaPairDStream<String, AvgCount> computeAvgFromStream(JavaPairInputDStream<String, String> stackStream) {
+	protected static JavaPairDStream<String, AvgCount> computeAvgFromStream(JavaPairDStream<String, String> stackStream) {
 		JavaPairDStream<String, AvgCount> messages = stackStream.mapValues(
 				new Function<String, AvgCount>() {
 					@Override
@@ -114,7 +117,7 @@ public abstract class AverageSensorData {
 	 * @param stackStream
 	 * @return
 	 */
-	protected static JavaPairDStream<String, Tuple2<Integer, Integer>> computeAlertFromStream(JavaPairInputDStream<String, String> stackStream) {
+	protected static JavaPairDStream<String, Tuple2<Integer, Integer>> computeAlertFromStream(JavaPairDStream<String, String> stackStream) {
 		JavaPairDStream<String, Integer> messages = stackStream.mapValues(
 				new Function<String, Integer>() {
 					@Override
@@ -178,6 +181,20 @@ public abstract class AverageSensorData {
 	 * @param ssc
 	 * @return
 	 */
-	abstract protected JavaPairInputDStream<String, String> getStackStream(JavaStreamingContext ssc);
+	protected JavaPairDStream<String, String> getStackStream(JavaStreamingContext ssc) {
+		final JavaReceiverInputDStream<String> rawMessages = getRawStackStream(ssc);
+		final JavaPairDStream<String, String> messages = rawMessages.mapToPair(
+				new PairFunction<String, String, String>() {
+					@Override
+					public Tuple2<String, String> call(String json) throws Exception {
+						return jsonConvert(json);
+					}
+				});
+		
+		return messages;
+	}
+	
+	abstract protected JavaReceiverInputDStream<String> getRawStackStream(JavaStreamingContext ssc);
+
 }
 
