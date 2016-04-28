@@ -183,6 +183,16 @@ public abstract class AverageSensorData {
 	 */
 	protected JavaPairDStream<String, String> getStackStream(JavaStreamingContext ssc) {
 		final JavaReceiverInputDStream<String> rawMessages = getRawStackStream(ssc);
+		final JavaPairDStream<String, String> messages = convertInputDStreamIntoPairDStream(rawMessages);		
+		return messages;
+	}
+
+	/**
+	 * @param rawMessages
+	 * @return
+	 */
+	protected static JavaPairDStream<String, String> convertInputDStreamIntoPairDStream(
+			final JavaReceiverInputDStream<String> rawMessages) {
 		final JavaPairDStream<String, String> messages = rawMessages.mapToPair(
 				new PairFunction<String, String, String>() {
 					@Override
@@ -190,7 +200,6 @@ public abstract class AverageSensorData {
 						return jsonConvert(json);
 					}
 				});
-		
 		return messages;
 	}
 	
