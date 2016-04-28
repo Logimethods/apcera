@@ -6,9 +6,8 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        ">
-   <!--  
-    <bean id="connection" class="org.nats.client.Connection"/>
-   -->  
+   
+     
     <bean id="connection" class="com.logi.camel.NatsConnection"/>
     
 	<bean id="natsComponent" class="com.logi.camel.NatsComponent">
@@ -22,14 +21,14 @@
 	
 	<camelContext xmlns="http://camel.apache.org/schema/spring">
   <route>
-    <from uri="netty4:tcp://127.0.0.1:9999?textline=true&amp;sync=false&amp;delimiter=LINE&amp;synchronous=false"/>
+    <from uri="netty4:tcp://0.0.0.0:9999?textline=true&amp;sync=false&amp;delimiter=LINE&amp;synchronous=false"/>
     <setHeader headerName="THREAD_NAME">
       <description>Set thread name into the header so we can trace thread name later in Apcera for demo purposes</description>
       <simple>${threadName}</simple>
     </setHeader>
     <bean ref="inputMessageConverter" method="convert"/>
     <bean ref="tracer" method="trace"/>
-    <to uri="nats://localhost:4222?topic=MeterQueue"/>
+    <to uri="bean:natsComponent?method=process"/>
   </route>
 </camelContext>
 

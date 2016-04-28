@@ -6,6 +6,12 @@
   <artifactId>camel-nats-demo</artifactId>
   <version>1.0</version>
   <name>camel-nats-demo</name>
+  
+  <properties>
+        <java.version>1.8</java.version>
+        <spark.version>1.6.1</spark.version>
+  </properties>
+    
   <dependencies>
     <dependency>
       <groupId>io.nats</groupId>
@@ -76,6 +82,15 @@
   </pluginRepositories>
   <build>
     <plugins>
+     <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
