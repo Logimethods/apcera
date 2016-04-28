@@ -6,8 +6,11 @@ package spark.stream.telematics;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.script.ScriptException;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -108,5 +111,12 @@ public class AverageSensorDataTest {
 			ssc.stop();
 		}
 	}
-
+	
+	@Test
+	public void testJsonConvert() throws IOException, ScriptException {
+		String json = "{ \"id\" : \"1\", \"voltage\" : \"104\" }";
+		Tuple2<String, String> tuple = AverageSensorData.jsonConvert(json);
+		assertEquals("1", tuple._1());
+		assertEquals("104", tuple._2());
+	}
 }

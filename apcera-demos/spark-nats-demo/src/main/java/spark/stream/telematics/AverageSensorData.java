@@ -1,6 +1,10 @@
 package spark.stream.telematics;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Map;
+
+import javax.script.ScriptException;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.function.Function;
@@ -160,6 +164,14 @@ public abstract class AverageSensorData {
 						);
 		
 		return alerts;
+	}
+
+	// { "id" : "1", "voltage" : "104" }
+	public final static Tuple2<String, String> jsonConvert(String json) throws IOException, ScriptException {
+		Map<String, String> map = JSonHelper.parseJsonIntoMap(json);		
+		String id = map.get("id");
+		String voltage = map.get("voltage");
+		return new Tuple2<String, String>(id, voltage);
 	}
 
 	/**
