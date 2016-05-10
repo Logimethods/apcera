@@ -17,6 +17,7 @@ import org.apache.spark.streaming.api.java.JavaPairInputDStream;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 
+import nats.SendToNatsActionExecutionFunction;
 import scala.Tuple2;
 
 @SuppressWarnings("serial")
@@ -82,9 +83,7 @@ public abstract class AverageSensorData {
 	 */
 	protected void avgCountsExport(JavaPairDStream<String, AvgCount> avgCounts) {
 		avgCounts.print();
-
-		//avgCounts.foreachRDD(new SendToKafkaActionExecutionFunction("192.168.0.120:9092,192.168.0.121:9092"));
-		//avgCounts.foreachRDD(new SendToKafkaActionExecutionFunction("192.168.0.120:9092"));
+		avgCounts.foreachRDD(new SendToNatsActionExecutionFunction("192.168.0.107", 34686));
 	}
 
 	/**
