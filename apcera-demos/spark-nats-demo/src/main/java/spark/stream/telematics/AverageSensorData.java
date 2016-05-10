@@ -18,6 +18,7 @@ import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 
 import nats.SendToNatsActionExecutionFunction;
+import nats.SendToNatsAlertsActionExecutionFunction;
 import scala.Tuple2;
 
 @SuppressWarnings("serial")
@@ -91,6 +92,7 @@ public abstract class AverageSensorData {
 	 */
 	protected void alertsExport(JavaPairDStream<String, Tuple2<Integer, Integer>> alerts) {
 		alerts.print();
+		alerts.foreachRDD(new SendToNatsAlertsActionExecutionFunction("192.168.0.107", 34686));
 	}
 
 	/**
