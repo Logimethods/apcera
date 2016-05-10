@@ -34,11 +34,6 @@
       <version>2.16.2</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-stream</artifactId>
-      <version>2.16.2</version>
-    </dependency>
-    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>4.1.5.RELEASE</version>
@@ -71,13 +66,13 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-netty4</artifactId>
-      <version>2.15.1.redhat-620133</version>
+      <version>2.16.2</version>
     </dependency>
   </dependencies>
   <pluginRepositories>
     <pluginRepository>
-      <id>onejar-maven-plugin.googlecode.com</id>
-      <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
+      <id>fusesource</id>
+      <url>http://repo.fusesource.com/nexus/content/groups/m2-proxy/</url>
     </pluginRepository>
   </pluginRepositories>
   <build>
@@ -91,8 +86,11 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
+      <!--
       <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>2.6</version>
         <configuration>
           <archive>
             <manifest>
@@ -101,6 +99,7 @@
           </archive>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.dstovall</groupId>
         <artifactId>onejar-maven-plugin</artifactId>
@@ -117,6 +116,23 @@
           </execution>
         </executions>
       </plugin>
+      -->
+      <plugin>
+		  <groupId>io.fabric8</groupId>
+		  <artifactId>hawt-app-maven-plugin</artifactId>
+		  <version>2.2.115</version>
+		  <executions>
+		    <execution>
+		      <id>hawt-app</id>
+		      <goals>
+		        <goal>build</goal>
+		      </goals>
+		      <configuration>
+		        <javaMainClass>org.apache.camel.spring.Main</javaMainClass>
+		      </configuration>
+		    </execution>
+		  </executions>
+		</plugin>
     </plugins>
   </build>
 </project>

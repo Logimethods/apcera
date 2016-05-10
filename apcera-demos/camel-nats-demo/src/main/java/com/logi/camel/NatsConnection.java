@@ -14,7 +14,7 @@ public class NatsConnection {
 		
 		String url = System.getenv("NATS_URI");
 		String url1 = System.getenv("NATSSERVERINT_URI");
-		String defaultUrl ="nats://192.168.0.107:34686";
+		String defaultUrl ="nats://0.0.0.0:4222";
 		
 		LOG.info("url: " + url);
 		LOG.info("url1: " + url1);
