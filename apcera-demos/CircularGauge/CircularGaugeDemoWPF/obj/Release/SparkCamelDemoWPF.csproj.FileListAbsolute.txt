@@ -1,0 +1,15 @@
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\bin\Release\CircularGaugeDemoWPF.exe.config
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\bin\Release\CircularGaugeDemoWPF.exe
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\bin\Release\CircularGaugeDemoWPF.pdb
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\bin\Release\CircularGauge.dll
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\bin\Release\CircularGauge.pdb
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\SparkCamelDemoWPF.csprojResolveAssemblyReference.cache
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\Window1.baml
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\Window1.g.cs
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\App.g.cs
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\CircularGaugeDemoWPF_MarkupCompile.cache
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\CircularGaugeDemoWPF.g.resources
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\CircularGaugeDemoWPF.Properties.Resources.resources
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\SparkCamelDemoWPF.csproj.GenerateResource.Cache
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\CircularGaugeDemoWPF.exe
+C:\LogimethodsGit\apcera\apcera-demos\CircularGauge\CircularGaugeDemoWPF\obj\Release\CircularGaugeDemoWPF.pdb

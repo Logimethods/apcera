@@ -1,0 +1,184 @@
+﻿<Window x:Class="CircularGaugeDemoWPF.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:gauge="clr-namespace:CircularGauge;assembly=CircularGauge"
+    Title="Circular Gauge WPF Demo" Height="777.349" Width="700" BorderThickness="16">
+
+
+    <Grid x:Name="LayoutRoot" >
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF552322" Offset="1"/>
+                <GradientStop Color="#FFFFFFFF" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="330" />
+                <RowDefinition Height="330"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330" />
+                <ColumnDefinition Width="330"/>
+            </Grid.ColumnDefinitions>
+
+
+            <!--Black Gauge -->
+            <gauge:CircularGaugeControl x:Name="myGauge1" Grid.Column="0" Grid.Row="0" 
+                                        Radius="150" 
+                                        ScaleRadius="110" 
+                                        ScaleStartAngle="120" 
+                                        ScaleSweepAngle="300"
+                                        PointerLength="85" 
+                                        PointerCapRadius="35" 
+                                        MinValue="90" 
+                                        MaxValue="120" 
+                                        MajorDivisionsCount="6" 
+                                        MinorDivisionsCount="5" 
+                                        CurrentValue="{Binding Score}"                                     
+                                        RangeIndicatorThickness="8"
+                                        RangeIndicatorRadius="120"
+                                        RangeIndicatorLightRadius="10"
+                                        RangeIndicatorLightOffset="80"
+                                        ScaleLabelRadius="90"
+                                        ScaleLabelSize="40,20"
+                                        ScaleLabelFontSize="10"
+                                        ScaleLabelForeground="Black"
+                                        MajorTickSize="10,3"
+                                        MinorTickSize="3,1"
+                                        MajorTickColor="DarkGray"
+                                        MinorTickColor="DarkGray"
+                                        ImageOffset="-50"
+                                        GaugeBackgroundColor="DarkSlateGray"
+                                        PointerThickness ="16"
+                                        OptimalRangeStartValue="100"
+                                        OptimalRangeEndValue="110" 
+                                        DialTextOffset="40" 
+                                        DialText="Volts"
+                                        DialTextColor="DarkSlateGray" DialBorderThickness="16" Margin="0,0,0.4,0.4">
+                <CheckBox Content="CheckBox" Height="100" Width="100"/>
+
+            </gauge:CircularGaugeControl>
+
+            <!--Blue Gauge -->
+            <gauge:CircularGaugeControl x:Name="myGauge2" 
+                                         Radius="150" 
+                                        ScaleRadius="110" 
+                                        ScaleStartAngle="120" 
+                                        ScaleSweepAngle="300"
+                                        PointerLength="85" 
+                                        PointerCapRadius="35" 
+                                        MinValue="90" 
+                                        MaxValue="120" 
+                                        MajorDivisionsCount="6" 
+                                        MinorDivisionsCount="5" 
+                                        CurrentValue="{Binding Score}"
+                                       
+                                        RangeIndicatorThickness="8"
+                                        RangeIndicatorRadius="120"
+                                        RangeIndicatorLightRadius="10"
+                                        RangeIndicatorLightOffset="80"
+                                        ScaleLabelRadius="90"
+                                        ScaleLabelSize="40,20"
+                                        ScaleLabelFontSize="10"
+                                        ScaleLabelForeground="Red"
+                                        MajorTickSize="10,3"
+                                        MinorTickSize="3,1"
+                                        MajorTickColor="Red"
+                                        MinorTickColor="Red"
+                                        ImageOffset="-50"
+                                        GaugeBackgroundColor="White"
+                                        PointerThickness ="16"
+                                        OptimalRangeStartValue="100"
+                                        OptimalRangeEndValue="110" 
+                                        DialTextOffset="40" 
+                                        DialText="Volts"
+                                        DialTextColor="Black" DialBorderThickness="16" Margin="330,0,-0.2,0.4" Grid.ColumnSpan="2">
+                <CheckBox Content="CheckBox" Height="100" Width="100"/>
+            </gauge:CircularGaugeControl>
+
+
+            <!--Red Gauge -->
+            <gauge:CircularGaugeControl x:Name="myGauge3" Grid.Column="0"
+                                        Radius="150" 
+                                        ScaleRadius="90" 
+                                        ScaleStartAngle="120" 
+                                        ScaleSweepAngle="300"
+                                        PointerLength="80" 
+                                        PointerCapRadius="45" 
+                                        MinValue="0" 
+                                        MaxValue="120" 
+                                        MajorDivisionsCount="12" 
+                                        MinorDivisionsCount="5" 
+                                        OptimalRangeStartValue="100"
+                                        OptimalRangeEndValue="110"
+                                        CurrentValue="{Binding Score}"
+                                       
+                                        RangeIndicatorThickness="0"
+                                        RangeIndicatorRadius="0"
+                                        RangeIndicatorLightRadius="10"
+                                        RangeIndicatorLightOffset="80"
+                                        ScaleLabelRadius="110"
+                                        ScaleLabelSize="40,20"
+                                        ScaleLabelFontSize="10"
+                                        ScaleLabelForeground="White"
+                                        MajorTickSize="13,3"
+                                        MinorTickSize="5,1"
+                                        MajorTickColor="White"
+                                        MinorTickColor="LightGray"
+                                        ImageOffset="-50"
+                                        GaugeBackgroundColor="DarkRed"
+                                        PointerThickness ="20"
+                                        DialTextOffset="40"
+                                        DialText="Volts"
+                                        DialTextColor="DarkRed" DialBorderThickness="16" Margin="0,330,0.4,0" Grid.RowSpan="2" >
+                <CheckBox Content="CheckBox" Height="100" Width="100"/>
+            </gauge:CircularGaugeControl>
+
+            <!--DarkSlateGray gauge-->
+            <gauge:CircularGaugeControl x:Name="myGauge4" 
+                                        Radius="150" 
+                                        BorderThickness="0"
+                                        ScaleRadius="110" 
+                                        ScaleStartAngle="120" 
+                                        ResetPointerOnStartUp="True"
+                                        ScaleSweepAngle="300"
+                                        PointerLength="85" 
+                                        PointerCapRadius="35" 
+                                        MinValue="0" 
+                                        MaxValue="120" 
+                                        MajorDivisionsCount="12" 
+                                        MinorDivisionsCount="5" 
+                                        CurrentValue="{Binding Score}"
+                                                                     
+                                        RangeIndicatorThickness="0"
+                                        RangeIndicatorRadius="0"
+                                        RangeIndicatorLightRadius="10"
+                                        RangeIndicatorLightOffset="80"
+                                        ScaleLabelRadius="90"
+                                        ScaleLabelSize="40,20"
+                                        ScaleLabelFontSize="11"
+                                        ScaleLabelForeground="Black"
+                                        MajorTickSize="10,3"
+                                        MinorTickSize="3,1"
+                                        MajorTickColor="DarkGray"
+                                        MinorTickColor="DarkGray"
+                                        ImageOffset="-50"
+                                        GaugeBackgroundColor="DarkSlateGray"
+                                        PointerThickness ="12"
+                                        OptimalRangeStartValue="100"
+                                        OptimalRangeEndValue="120" 
+                                        DialTextOffset="40"
+                                        DialText="Volts"
+                                        DialTextColor="DarkSlateGray" DialBorderThickness="16" Margin="330,330,-0.2,0" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        </Grid>
+        <CheckBox Content="Meter #1 Test Spike" HorizontalAlignment="Left" Height="26" Margin="4,317,0,0" VerticalAlignment="Top" Width="131"
+                  Checked="CheckBox1_Checked"
+                  Unchecked="CheckBox1_Unchecked"/>
+        <CheckBox Content="Meter #2 Test Spike" HorizontalAlignment="Left" Height="26" Margin="337,317,0,0" VerticalAlignment="Top" Width="131"
+                  Checked="CheckBox2_Checked"
+                  Unchecked="CheckBox2_Unchecked"/>
+        <Button Content="Connect To Gateway" HorizontalAlignment="Left" Height="47" Margin="251,648,0,0" VerticalAlignment="Top" 
+                Width="155" Click="Connect_Button_Click" IsDefault="True"/>
+    </Grid>
+</Window>
