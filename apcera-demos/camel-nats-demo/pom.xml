@@ -9,7 +9,9 @@
   
   <properties>
         <java.version>1.8</java.version>
-        <spark.version>1.6.1</spark.version>
+        <camel.version>2.16.2</camel.version>
+        <docker.maven.plugin.version>0.13.9</docker.maven.plugin.version>
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
   </properties>
     
   <dependencies>
@@ -26,12 +28,12 @@
     <dependency>
   <groupId>org.apache.camel</groupId>
   <artifactId>camel-jackson</artifactId>
-  <version>2.16.2</version>
+  <version>${camel.version}</version>
 </dependency>
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
-      <version>2.16.2</version>
+      <version>${camel.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -51,7 +53,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-test-spring</artifactId>
-      <version>2.16.2</version>
+      <version>${camel.version}</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -66,7 +68,7 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-netty4</artifactId>
-      <version>2.16.2</version>
+      <version>${camel.version}</version>
     </dependency>
   </dependencies>
   <pluginRepositories>
@@ -74,13 +76,37 @@
       <id>fusesource</id>
       <url>http://repo.fusesource.com/nexus/content/groups/m2-proxy/</url>
     </pluginRepository>
+     <pluginRepository>
+      <id>fusesource.m2</id>
+      <name>FuseSource Community Release Repository</name>
+      <url>https://repo.fusesource.com/nexus/content/groups/public</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+    <pluginRepository>
+      <id>fusesource.ea</id>
+      <name>FuseSource Community Early Access Release Repository</name>
+      <url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
   </pluginRepositories>
   <build>
     <plugins>
      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
@@ -132,6 +158,29 @@
 		      </configuration>
 		    </execution>
 		  </executions>
+		</plugin>
+		<plugin>
+		  <groupId>org.jolokia</groupId>
+		  <artifactId>docker-maven-plugin</artifactId>
+		  <version>${docker.maven.plugin.version}</version>
+		  <configuration>
+		    <images>
+		      <image>
+		        <name>logimethods/camel-nats:1.0</name>
+		        <build>
+		          <from>jboss-fuse-6/fis-java-openshift:1.0</from>
+		          <assembly>
+		            <basedir>/deployments</basedir>
+		            <descriptorRef>hawt-app</descriptorRef>
+		          </assembly>
+		          <env>
+		            <JAVA_LIB_DIR>/deployments/lib</JAVA_LIB_DIR>
+		            <JAVA_MAIN_CLASS>org.apache.camel.spring.Main</JAVA_MAIN_CLASS>
+		          </env>
+		        </build>
+		      </image>
+		    </images>
+		  </configuration>
 		</plugin>
     </plugins>
   </build>
