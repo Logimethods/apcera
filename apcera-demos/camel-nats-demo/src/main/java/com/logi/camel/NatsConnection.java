@@ -13,13 +13,14 @@ public class NatsConnection {
 	public NatsConnection (){
 		
 		String url = System.getenv("NATS_URI");
-		String url1 = System.getenv("NATSSERVERINT_URI");
+		//String url1 = System.getenv("NATSSERVERINT_URI");
 		String defaultUrl ="nats://0.0.0.0:4222";
+		LOG.info("Apcera URl: " + url);
 		
-		LOG.info("url: " + url);
-		LOG.info("url1: " + url1);
 		if (url == null)
 			url = defaultUrl;
+		
+		LOG.info("Trying to connect to url: " + url);
 		
 		ConnectionFactory cf = new ConnectionFactory(url);
 		 try  {
@@ -29,6 +30,7 @@ public class NatsConnection {
 	        {
 	        	e.printStackTrace();
 	        }
+		 LOG.info("Connected to: " + url);
 	}
 
 }
