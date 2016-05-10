@@ -1,1 +1,0 @@
-nuget push CircularGauge.1.0.1.nupkg {APIKEY}
