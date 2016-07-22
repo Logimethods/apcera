@@ -11,12 +11,12 @@ package io.nats.connector;
 import io.nats.client.*;
 import io.nats.connector.plugin.NATSConnector;
 import io.nats.connector.plugin.NATSConnectorPlugin;
+import io.nats.connector.plugin.NATSEvent;
 
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import io.nats.connector.plugin.NATSEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -8,11 +8,11 @@
 
 package io.nats.connector;
 
-import io.nats.connector.plugin.NATSConnectorPlugin;
-
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.nats.connector.plugin.NATSConnectorPlugin;
 
 
 /**
