@@ -1,35 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
-       ">
-   
-     
-    <bean id="connection" class="com.logi.camel.NatsConnection"/>
-    
-	<bean id="natsComponent" class="com.logi.camel.NatsComponent">
-    	<property name="natsConnection" ref="connection"/>
-	</bean>
-
-
-	<bean id="tracer" class="com.logi.camel.Tracer" init-method="start"/>
-	<bean id="inputMessageConverter" class="com.logi.camel.InputMessageConverter"/>
-
-	
-	<camelContext xmlns="http://camel.apache.org/schema/spring">
-  <route>
-    <from uri="netty4:tcp://0.0.0.0:9999?textline=true&amp;sync=false&amp;delimiter=LINE&amp;synchronous=false"/>
-    <setHeader headerName="THREAD_NAME">
-      <description>Set thread name into the header so we can trace thread name later in Apcera for demo purposes</description>
-      <simple>${threadName}</simple>
-    </setHeader>
-    <bean ref="inputMessageConverter" method="convert"/>
-    <bean ref="tracer" method="trace"/>
-    <to uri="bean:natsComponent?method=process"/>
-  </route>
-</camelContext>
-
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd        ">
+    <bean class="com.logi.camel.Tracer" id="tracer" init-method="start"/>
+    <bean class="com.logi.camel.InputMessageConverter" id="inputMessageConverter"/>
+    <camelContext id="tcpToNatsDemo" xmlns="http://camel.apache.org/schema/spring">
+        <route id="fromSocketToNats">
+            <from id="fromNetty" uri="netty4:tcp://0.0.0.0:9999?textline=true&amp;sync=false&amp;delimiter=LINE&amp;synchronous=false"/>
+            <setHeader headerName="THREAD_NAME" id="_setHeader1">
+                <description>Set thread name into the header so we can trace thread name later in Apcera for demo purposes</description>
+                <simple>${threadName}</simple>
+            </setHeader>
+            <bean id="ParceInputMessage" method="convert" ref="inputMessageConverter"/>
+            <bean id="TraceInputMessage" method="trace" ref="tracer"/>
+            <to id="toNats" uri="nats://APCERA:NATS?topic=test_apcera"/>
+        </route>
+    </camelContext>
 </beans>

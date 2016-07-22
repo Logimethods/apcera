@@ -9,21 +9,16 @@
   
   <properties>
         <java.version>1.8</java.version>
-        <camel.version>2.16.2</camel.version>
+        <camel.version>2.17.2</camel.version>
         <docker.maven.plugin.version>0.13.9</docker.maven.plugin.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
   </properties>
     
   <dependencies>
-    <dependency>
-      <groupId>io.nats</groupId>
-      <artifactId>jnats</artifactId>
-      <version>0.4.1</version>
-    </dependency>
      <dependency>
-      <groupId>org.apache.camel</groupId>
+      <groupId>com.logimethods.apcera</groupId>
       <artifactId>camel-nats</artifactId>
-      <version>2.17.0</version>
+      <version>1.0</version>
     </dependency>
     <dependency>
   <groupId>org.apache.camel</groupId>
@@ -112,7 +107,6 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
-      <!--
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -142,7 +136,8 @@
           </execution>
         </executions>
       </plugin>
-      -->
+     
+       <!--
       <plugin>
 		  <groupId>io.fabric8</groupId>
 		  <artifactId>hawt-app-maven-plugin</artifactId>
@@ -182,6 +177,7 @@
 		    </images>
 		  </configuration>
 		</plugin>
+		 -->
     </plugins>
   </build>
 </project>

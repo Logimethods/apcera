@@ -24,12 +24,12 @@ public class InputMessageConverter {
 		Object objMessage = exchange.getIn().getBody();
 		String  strMessage =  objMessage.toString();
 		//strMessage = strMessage.replaceAll("\\n", "");
-		String[] strArray = SPACE.split(strMessage);
-		pojoMessage.id = EQ.split(strArray[1])[1];
-		pojoMessage.voltage = EQ.split(strArray[0])[1];
+		//String[] strArray = SPACE.split(strMessage);
+		//pojoMessage.id = EQ.split(strArray[1])[1];
+		//pojoMessage.voltage = EQ.split(strArray[0])[1];
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(pojoMessage);
+		String json = ow.writeValueAsString(strMessage);
 				
 		return json;	
 	}

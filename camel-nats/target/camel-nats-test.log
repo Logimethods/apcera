@@ -1,0 +1,373 @@
+2016-07-12 12:55:01,948 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 12:55:01,950 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 12:55:01,950 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 12:55:02,613 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 12:55:02,617 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 12:55:02,776 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 12:55:02,963 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2016-07-12 12:55:02,963 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2016-07-12 12:55:03,052 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[direct://send]
+2016-07-12 12:55:03,053 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 are started.
+2016-07-12 12:55:03,069 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) started in 0.441 seconds
+2016-07-12 12:55:03,106 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 12:55:03,107 [main           ] INFO  NatsProducerTest               - Testing done: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 12:55:03,107 [main           ] INFO  NatsProducerTest               - Took: 0.036 seconds (36 millis)
+2016-07-12 12:55:03,107 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 12:55:03,109 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutting down
+2016-07-12 12:55:03,110 [main           ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
+2016-07-12 12:55:03,121 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[direct://send]
+2016-07-12 12:55:03,122 [main           ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2016-07-12 12:55:03,129 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) uptime 0.516 seconds
+2016-07-12 12:55:03,129 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutdown in 0.019 seconds
+2016-07-12 12:56:34,593 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 12:56:34,600 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 12:56:34,603 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 12:56:39,870 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 12:56:39,915 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 12:56:42,880 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 12:56:48,804 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2016-07-12 12:56:48,809 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2016-07-12 13:01:42,533 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 13:01:42,541 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 13:01:42,544 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 13:01:47,699 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 13:01:47,743 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 13:01:50,793 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 14:38:14,806 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:38:14,808 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:38:14,809 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:38:15,417 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 14:38:15,420 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 14:38:15,557 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 14:38:15,648 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutting down
+2016-07-12 14:38:15,668 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) uptime 0.237 seconds
+2016-07-12 14:38:15,669 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutdown in 0.005 seconds
+2016-07-12 14:38:15,669 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:38:15,669 [main           ] INFO  NatsProducerTest               - Testing done: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:38:15,670 [main           ] INFO  NatsProducerTest               - Took: 0.869 seconds (869 millis)
+2016-07-12 14:38:15,670 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:39:33,088 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:39:33,095 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:39:33,099 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:39:37,894 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 14:39:37,922 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 14:39:39,768 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 14:42:27,848 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:42:27,850 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:42:27,850 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:42:28,455 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 14:42:28,458 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 14:42:28,598 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 14:42:28,696 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutting down
+2016-07-12 14:42:28,716 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) uptime 0.246 seconds
+2016-07-12 14:42:28,717 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutdown in 0.005 seconds
+2016-07-12 14:42:28,717 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:42:28,717 [main           ] INFO  NatsProducerTest               - Testing done: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:42:28,719 [main           ] INFO  NatsProducerTest               - Took: 0.877 seconds (877 millis)
+2016-07-12 14:42:28,719 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:43:05,299 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:43:05,306 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:43:05,309 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:43:10,383 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 14:43:10,426 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 14:43:13,151 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 14:46:52,257 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:46:52,258 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:46:52,259 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:46:52,882 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 14:46:52,885 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 14:46:53,023 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 14:46:53,113 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutting down
+2016-07-12 14:46:53,132 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) uptime 0.237 seconds
+2016-07-12 14:46:53,133 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutdown in 0.005 seconds
+2016-07-12 14:46:53,133 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:46:53,133 [main           ] INFO  NatsProducerTest               - Testing done: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:46:53,134 [main           ] INFO  NatsProducerTest               - Took: 0.885 seconds (885 millis)
+2016-07-12 14:46:53,134 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:47:27,106 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:47:27,113 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:47:27,116 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:47:32,128 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 14:47:32,172 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 14:47:35,302 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 14:49:45,631 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:49:45,633 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:49:45,633 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:49:46,294 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 14:49:46,297 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 14:49:46,433 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 14:49:46,609 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2016-07-12 14:49:46,609 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2016-07-12 14:49:46,690 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[direct://send]
+2016-07-12 14:49:46,691 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 are started.
+2016-07-12 14:49:46,708 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) started in 0.398 seconds
+2016-07-12 14:49:46,746 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:49:46,746 [main           ] INFO  NatsProducerTest               - Testing done: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 14:49:46,747 [main           ] INFO  NatsProducerTest               - Took: 0.037 seconds (37 millis)
+2016-07-12 14:49:46,747 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 14:49:46,748 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutting down
+2016-07-12 14:49:46,750 [main           ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
+2016-07-12 14:49:46,761 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[direct://send]
+2016-07-12 14:49:46,761 [main           ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2016-07-12 14:49:46,767 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) uptime 0.474 seconds
+2016-07-12 14:49:46,768 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutdown in 0.019 seconds
+2016-07-12 15:10:36,722 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 15:10:36,724 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 15:10:36,724 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 15:10:37,305 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-12 15:10:37,308 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-12 15:10:37,443 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-12 15:10:37,545 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutting down
+2016-07-12 15:10:37,566 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) uptime 0.246 seconds
+2016-07-12 15:10:37,566 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutdown in 0.005 seconds
+2016-07-12 15:10:37,566 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-12 15:10:37,567 [main           ] INFO  NatsProducerTest               - Testing done: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-12 15:10:37,567 [main           ] INFO  NatsProducerTest               - Took: 0.851 seconds (851 millis)
+2016-07-12 15:10:37,567 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-13 11:16:38,895 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-13 11:16:38,905 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-13 11:16:38,908 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-13 11:16:43,395 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-13 11:16:43,421 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-13 11:16:46,512 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-13 11:19:33,278 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-13 11:19:33,285 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-13 11:19:33,288 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-13 11:19:38,369 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-13 11:19:38,413 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-13 11:19:41,447 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-13 11:23:17,521 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-13 11:23:17,528 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-13 11:23:17,531 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-13 11:23:22,013 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-13 11:23:22,056 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-13 11:23:24,768 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-13 11:24:04,037 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2016-07-13 11:24:04,042 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2016-07-13 11:24:41,643 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[direct://send]
+2016-07-13 11:24:41,651 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 are started.
+2016-07-13 11:24:41,832 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) started in 1 minute
+2016-07-13 11:25:04,118 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-13 11:25:04,123 [main           ] INFO  NatsProducerTest               - Testing done: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-13 11:25:04,150 [main           ] INFO  NatsProducerTest               - Took: 22.233 seconds (22233 millis)
+2016-07-13 11:25:04,153 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-13 11:25:04,193 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutting down
+2016-07-13 11:25:04,211 [main           ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
+2016-07-13 11:25:04,330 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[direct://send]
+2016-07-13 11:25:04,338 [main           ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2016-07-13 11:25:04,492 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) uptime 1 minute
+2016-07-13 11:25:04,500 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutdown in 0.294 seconds
+2016-07-14 12:06:00,528 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-14 12:06:00,531 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-14 12:06:00,531 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-14 12:06:01,177 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-14 12:06:01,180 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-14 12:06:01,332 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-14 12:06:01,536 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2016-07-14 12:06:01,536 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2016-07-14 12:06:01,623 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[direct://send]
+2016-07-14 12:06:01,624 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 are started.
+2016-07-14 12:06:01,641 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) started in 0.449 seconds
+2016-07-14 12:06:01,683 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-14 12:06:01,683 [main           ] INFO  NatsProducerTest               - Testing done: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-14 12:06:01,684 [main           ] INFO  NatsProducerTest               - Took: 0.041 seconds (41 millis)
+2016-07-14 12:06:01,684 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-14 12:06:01,686 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutting down
+2016-07-14 12:06:01,687 [main           ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
+2016-07-14 12:06:01,698 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[direct://send]
+2016-07-14 12:06:01,699 [main           ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2016-07-14 12:06:01,705 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) uptime 0.530 seconds
+2016-07-14 12:06:01,705 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutdown in 0.019 seconds
+2016-07-14 13:26:17,491 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-14 13:26:17,646 [main           ] INFO  NATSTestPlugin                 - Starting up.
+2016-07-14 13:26:17,649 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-14 13:26:17,654 [msgfeeder      ] INFO  NATSTestPlugin                 - Received message: {Subject=foo;Reply=bar;Payload=<Message-0>}
+2016-07-14 13:26:17,655 [msgfeeder      ] INFO  NATSTestPlugin                 - Flushed.
+2016-07-14 13:26:19,655 [msgfeeder      ] INFO  NATSTestPlugin                 - Received message: {Subject=foo;Reply=bar;Payload=<Message-1>}
+2016-07-14 13:26:19,655 [msgfeeder      ] INFO  NATSTestPlugin                 - Flushed.
+2016-07-14 13:26:21,655 [pool-1-thread-1] INFO  NATSTestPlugin                 - Shutdown the NATS connect from the plugin.
+2016-07-14 13:26:21,655 [main           ] INFO  NATSTestPlugin                 - Shutting down.
+2016-07-14 13:26:21,667 [natsthreadpool ] INFO  NATSTestPlugin                 - NATS Event Disconnected: NATS Connection disconnected.
+2016-07-14 13:26:21,669 [natsthreadpool ] ERROR Connector                      - Runtime exception in plugin method OnNATSEvent (DISCONNECTED): 
+java.lang.RuntimeException: Test framework plugin exception handling.
+	at org.apache.camel.component.nats.NATSTestPlugin.onNATSEvent(NATSTestPlugin.java:210)
+	at io.nats.connector.DataFlowHandler$EventHandlers.onDisconnect(DataFlowHandler.java:100)
+	at io.nats.client.ConnectionImpl$1.run(ConnectionImpl.java:501)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at io.nats.client.NATSThread.run(NATSThread.java:63)
+2016-07-14 13:26:21,675 [natsthreadpool ] INFO  NATSTestPlugin                 - NATS Event Closed: NATS Connection closed.
+2016-07-14 13:26:21,675 [natsthreadpool ] ERROR Connector                      - Runtime exception in plugin method OnNATSEvent (CLOSED): 
+java.lang.RuntimeException: Test framework plugin exception handling.
+	at org.apache.camel.component.nats.NATSTestPlugin.onNATSEvent(NATSTestPlugin.java:210)
+	at io.nats.connector.DataFlowHandler$EventHandlers.onClose(DataFlowHandler.java:73)
+	at io.nats.client.ConnectionImpl$2.run(ConnectionImpl.java:509)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at io.nats.client.NATSThread.run(NATSThread.java:63)
+2016-07-14 13:26:21,676 [main           ] INFO  Connector                      - NATS Connector has shut down.
+2016-07-14 13:29:22,805 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-14 13:29:22,956 [main           ] INFO  NATSTestPlugin                 - Starting up.
+2016-07-14 13:29:22,959 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-14 13:29:22,960 [pool-1-thread-1] INFO  NATSTestPlugin                 - Starting connector: 
+2016-07-14 13:29:22,964 [msgfeeder      ] INFO  NATSTestPlugin                 - Received message: {Subject=foo;Reply=bar;Payload=<Message-0>}
+2016-07-14 13:29:22,965 [msgfeeder      ] INFO  NATSTestPlugin                 - Flushed.
+2016-07-14 13:29:24,965 [msgfeeder      ] INFO  NATSTestPlugin                 - Received message: {Subject=foo;Reply=bar;Payload=<Message-1>}
+2016-07-14 13:29:24,965 [msgfeeder      ] INFO  NATSTestPlugin                 - Flushed.
+2016-07-14 13:29:26,966 [pool-1-thread-1] INFO  NATSTestPlugin                 - Shutdown the NATS connect from the plugin.
+2016-07-14 13:29:26,966 [main           ] INFO  NATSTestPlugin                 - Shutting down.
+2016-07-14 13:29:26,978 [natsthreadpool ] INFO  NATSTestPlugin                 - NATS Event Disconnected: NATS Connection disconnected.
+2016-07-14 13:29:26,980 [natsthreadpool ] ERROR Connector                      - Runtime exception in plugin method OnNATSEvent (DISCONNECTED): 
+java.lang.RuntimeException: Test framework plugin exception handling.
+	at org.apache.camel.component.nats.NATSTestPlugin.onNATSEvent(NATSTestPlugin.java:212)
+	at io.nats.connector.DataFlowHandler$EventHandlers.onDisconnect(DataFlowHandler.java:100)
+	at io.nats.client.ConnectionImpl$1.run(ConnectionImpl.java:501)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at io.nats.client.NATSThread.run(NATSThread.java:63)
+2016-07-14 13:29:26,986 [natsthreadpool ] INFO  NATSTestPlugin                 - NATS Event Closed: NATS Connection closed.
+2016-07-14 13:29:26,986 [natsthreadpool ] ERROR Connector                      - Runtime exception in plugin method OnNATSEvent (CLOSED): 
+java.lang.RuntimeException: Test framework plugin exception handling.
+	at org.apache.camel.component.nats.NATSTestPlugin.onNATSEvent(NATSTestPlugin.java:212)
+	at io.nats.connector.DataFlowHandler$EventHandlers.onClose(DataFlowHandler.java:73)
+	at io.nats.client.ConnectionImpl$2.run(ConnectionImpl.java:509)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at io.nats.client.NATSThread.run(NATSThread.java:63)
+2016-07-14 13:29:26,987 [main           ] INFO  Connector                      - NATS Connector has shut down.
+2016-07-14 13:40:27,461 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-14 13:46:40,646 [main           ] INFO  NATSTestPlugin                 - Starting up.
+2016-07-14 13:46:40,653 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-14 13:46:40,653 [pool-1-thread-1] INFO  NATSTestPlugin                 - Starting connector: 
+2016-07-14 13:46:41,036 [msgfeeder      ] INFO  NATSTestPlugin                 - Received message: {Subject=foo;Reply=bar;Payload=<Message-0>}
+2016-07-14 13:46:59,054 [msgfeeder      ] INFO  NATSTestPlugin                 - Flushed.
+2016-07-14 13:47:00,996 [msgfeeder      ] INFO  NATSTestPlugin                 - Received message: {Subject=foo;Reply=bar;Payload=<Message-1>}
+2016-07-14 13:47:02,996 [pool-1-thread-1] INFO  NATSTestPlugin                 - Shutdown the NATS connect from the plugin.
+2016-07-14 13:47:02,997 [main           ] INFO  NATSTestPlugin                 - Shutting down.
+2016-07-14 13:47:14,095 [natsthreadpool ] INFO  NATSTestPlugin                 - NATS Event Disconnected: NATS Connection disconnected.
+2016-07-14 13:47:14,104 [natsthreadpool ] ERROR Connector                      - Runtime exception in plugin method OnNATSEvent (DISCONNECTED): 
+java.lang.RuntimeException: Test framework plugin exception handling.
+	at org.apache.camel.component.nats.NATSTestPlugin.onNATSEvent(NATSTestPlugin.java:212)
+	at io.nats.connector.DataFlowHandler$EventHandlers.onDisconnect(DataFlowHandler.java:100)
+	at io.nats.client.ConnectionImpl$1.run(ConnectionImpl.java:501)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at io.nats.client.NATSThread.run(NATSThread.java:63)
+2016-07-14 13:47:15,343 [msgfeeder      ] INFO  NATSTestPlugin                 - Flushed.
+2016-07-14 13:47:19,729 [natsthreadpool ] INFO  NATSTestPlugin                 - NATS Event Closed: NATS Connection closed.
+2016-07-14 13:47:19,730 [natsthreadpool ] ERROR Connector                      - Runtime exception in plugin method OnNATSEvent (CLOSED): 
+java.lang.RuntimeException: Test framework plugin exception handling.
+	at org.apache.camel.component.nats.NATSTestPlugin.onNATSEvent(NATSTestPlugin.java:212)
+	at io.nats.connector.DataFlowHandler$EventHandlers.onClose(DataFlowHandler.java:73)
+	at io.nats.client.ConnectionImpl$2.run(ConnectionImpl.java:509)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at io.nats.client.NATSThread.run(NATSThread.java:63)
+2016-07-14 13:47:19,731 [main           ] INFO  Connector                      - NATS Connector has shut down.
+2016-07-15 10:48:33,065 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 10:48:33,067 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-15 10:48:33,067 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 10:48:33,727 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-15 10:48:33,730 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-15 10:48:33,886 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-15 10:48:34,103 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2016-07-15 10:48:34,103 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2016-07-15 10:48:34,121 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 10:48:34,214 [main           ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 10:48:34,218 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 10:52:07,740 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 10:52:07,743 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-15 10:52:07,743 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 10:52:08,534 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-15 10:52:08,538 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-15 10:52:08,720 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-15 10:52:19,341 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2016-07-15 10:52:19,341 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2016-07-15 10:53:06,580 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 10:56:16,718 [main           ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 10:56:25,609 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 10:59:09,522 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 10:59:09,524 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-15 10:59:09,524 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 10:59:10,226 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-15 10:59:10,230 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-15 10:59:10,389 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-15 10:59:17,548 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2016-07-15 10:59:17,548 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2016-07-15 10:59:23,616 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:00:12,434 [main           ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 11:00:12,443 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 11:10:24,101 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:10:24,252 [main           ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 11:10:24,259 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 11:11:12,036 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:11:33,732 [main           ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 11:11:33,748 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 11:12:43,809 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:14:20,282 [main           ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 11:14:26,007 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 11:24:19,980 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:24:29,133 [main           ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 11:24:29,143 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 11:29:53,362 [Thread-0       ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:34:32,401 [Thread-0       ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:34:40,436 [Thread-0       ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 11:34:40,446 [Thread-0       ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 11:37:35,127 [Thread-0       ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:37:35,276 [Thread-0       ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 11:37:35,283 [Thread-0       ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 11:37:37,125 [main           ] INFO  NatsCamelPlugin                - Starting connector: 
+2016-07-15 11:38:45,341 [main           ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:38:45,508 [main           ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 11:38:45,515 [main           ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 11:40:03,887 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 11:40:03,889 [main           ] INFO  NatsProducerTest               - Testing: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-15 11:40:03,889 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 11:40:04,507 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is starting
+2016-07-15 11:40:04,510 [main           ] INFO  DefaultManagementStrategy      - JMX is disabled
+2016-07-15 11:40:04,649 [main           ] INFO  DefaultTypeConverter           - Loaded 182 type converters
+2016-07-15 11:40:04,809 [main           ] INFO  DefaultCamelContext            - AllowUseOriginalMessage is enabled. If access to the original message is not needed, then its recommended to turn this option off as it may improve performance.
+2016-07-15 11:40:04,809 [main           ] INFO  DefaultCamelContext            - StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2016-07-15 11:40:04,827 [Thread-0       ] INFO  Connector                      - NATS Connector starting up.
+2016-07-15 11:40:04,834 [main           ] INFO  DefaultCamelContext            - Route: route1 started and consuming from: Endpoint[direct://send]
+2016-07-15 11:40:04,834 [main           ] INFO  DefaultCamelContext            - Total 1 routes, of which 1 are started.
+2016-07-15 11:40:04,850 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) started in 0.328 seconds
+2016-07-15 11:40:04,888 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 11:40:04,888 [main           ] INFO  NatsProducerTest               - Testing done: sendTest(org.apache.camel.component.nats.NatsProducerTest)
+2016-07-15 11:40:04,889 [main           ] INFO  NatsProducerTest               - Took: 0.037 seconds (37 millis)
+2016-07-15 11:40:04,889 [main           ] INFO  NatsProducerTest               - ********************************************************************************
+2016-07-15 11:40:04,891 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutting down
+2016-07-15 11:40:04,892 [main           ] INFO  DefaultShutdownStrategy        - Starting to graceful shutdown 1 routes (timeout 10 seconds)
+2016-07-15 11:40:04,903 [Thread-0       ] INFO  NatsCamelPlugin                - Starting up.
+2016-07-15 11:40:04,906 [ - ShutdownTask] INFO  DefaultShutdownStrategy        - Route: route1 shutdown complete, was consuming from: Endpoint[direct://send]
+2016-07-15 11:40:04,907 [main           ] INFO  DefaultShutdownStrategy        - Graceful shutdown of 1 routes completed in 0 seconds
+2016-07-15 11:40:04,908 [Thread-0       ] INFO  Connector                      - The NATS Connector is running.
+2016-07-15 11:40:04,911 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) uptime 0.405 seconds
+2016-07-15 11:40:04,912 [main           ] INFO  DefaultCamelContext            - Apache Camel 2.17.0 (CamelContext: camel-1) is shutdown in 0.020 seconds
+2016-07-15 11:40:04,919 [Thread-1       ] INFO  NatsCamelPlugin                - Shutting down.
+2016-07-15 11:40:04,925 [natsthreadpool ] INFO  NatsCamelPlugin                - NATS Event Disconnected: NATS Connection disconnected.
+2016-07-15 11:40:04,927 [natsthreadpool ] ERROR Connector                      - Runtime exception in plugin method OnNATSEvent (DISCONNECTED): 
+java.lang.RuntimeException: Test framework plugin exception handling.
+	at org.apache.camel.component.nats.NatsCamelPlugin.onNATSEvent(NatsCamelPlugin.java:69)
+	at io.nats.connector.DataFlowHandler$EventHandlers.onDisconnect(DataFlowHandler.java:100)
+	at io.nats.client.ConnectionImpl$1.run(ConnectionImpl.java:501)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at io.nats.client.NATSThread.run(NATSThread.java:63)
+2016-07-15 11:40:04,932 [natsthreadpool ] INFO  NatsCamelPlugin                - NATS Event Closed: NATS Connection closed.
+2016-07-15 11:40:04,932 [natsthreadpool ] ERROR Connector                      - Runtime exception in plugin method OnNATSEvent (CLOSED): 
+java.lang.RuntimeException: Test framework plugin exception handling.
+	at org.apache.camel.component.nats.NatsCamelPlugin.onNATSEvent(NatsCamelPlugin.java:69)
+	at io.nats.connector.DataFlowHandler$EventHandlers.onClose(DataFlowHandler.java:73)
+	at io.nats.client.ConnectionImpl$2.run(ConnectionImpl.java:509)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+	at io.nats.client.NATSThread.run(NATSThread.java:63)
