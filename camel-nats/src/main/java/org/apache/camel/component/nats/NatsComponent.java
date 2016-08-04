@@ -28,19 +28,15 @@ public class NatsComponent extends DefaultComponent {
         
     	NatsConfiguration config = new NatsConfiguration();
         setProperties(config, parameters);
-        String natsServer = null;
+        String natsServer = remaining;
         
         //Determine if NATS server is deployed as stand-alone server or as Apcera service
         if(remaining.substring(0,7).equalsIgnoreCase("Apcera:") == true){
           //Handle Apcera specific URI through service binding
         	remaining = remaining.substring(7).toUpperCase() + "_URI";
-        	natsServer = System.getenv("NATS_URI").substring(7);
-        	System.out.println("URI from Apcera is: " + natsServer);
-        }
-        else{
-        	System.out.println("URI for NATS Server is is: " + remaining);
-            natsServer = remaining;
-        }    
+        	natsServer = System.getenv("NATS_URI").replace("tcp://","");
+        	System.out.println("Using NATS Server from Apcera environment: " + natsServer);
+        }   
        
         config.setServers(natsServer);
         NatsEndpoint endpoint = new NatsEndpoint(uri, this, config);

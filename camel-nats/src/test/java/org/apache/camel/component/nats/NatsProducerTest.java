@@ -43,7 +43,7 @@ public class NatsProducerTest extends CamelTestSupport {
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-                from("direct:send").to("nats://APCERA:NATS?topic=test");
+                from("direct:send").to("nats://localhost:4222?topic=test");
             }
         };
     }

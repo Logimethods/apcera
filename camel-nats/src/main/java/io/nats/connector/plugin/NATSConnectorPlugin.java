@@ -73,5 +73,7 @@ public interface NATSConnectorPlugin {
      * plugin resources are cleaned up.
      */
     public void onShutdown();
+    
+    public void publish(String subject, String replySubject, byte[] payload) throws Exception;
 
 }

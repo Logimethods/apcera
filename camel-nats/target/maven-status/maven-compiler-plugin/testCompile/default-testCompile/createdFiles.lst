@@ -1,4 +1,5 @@
 org\apache\camel\component\nats\NatsConsumerTest.class
+org\apache\camel\component\nats\urlTest.class
 org\apache\camel\component\nats\NatsProducerTest$1.class
 org\apache\camel\component\nats\NatsConsumerMaxMessagesTest$1.class
 org\apache\camel\component\nats\NatsConsumerLoadTest.class

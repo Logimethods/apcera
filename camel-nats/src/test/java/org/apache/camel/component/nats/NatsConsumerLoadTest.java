@@ -37,11 +37,11 @@ public class NatsConsumerLoadTest extends CamelTestSupport {
 
     @Test
     public void testLoadConsumer() throws InterruptedException, IOException, TimeoutException {
-        mockResultEndpoint.setExpectedMessageCount(10000);
+        mockResultEndpoint.setExpectedMessageCount(100);
         ConnectionFactory cf = new ConnectionFactory("nats://localhost:4222");
         Connection connection = cf.createConnection();
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100; i++) {
             connection.publish("test", ("test" + i).getBytes());
         }
 
@@ -54,7 +54,7 @@ public class NatsConsumerLoadTest extends CamelTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:send").to("nats://localhost:4222?topic=test");
-                from("nats://localhost:4222?topic=test").to(mockResultEndpoint);
+                from("nats://localhost:4222?topic=test&queueName=test&poolSize=4").to(mockResultEndpoint);
             }
         };
     }

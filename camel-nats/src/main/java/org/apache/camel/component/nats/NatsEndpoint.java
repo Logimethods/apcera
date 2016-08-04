@@ -46,8 +46,12 @@ public class NatsEndpoint extends DefaultEndpoint {
         return new NatsConsumer(this, processor);
     }
     
-    public ExecutorService createExecutor() {
+    public ExecutorService createConsumerExecutor() {
         return getCamelContext().getExecutorServiceManager().newFixedThreadPool(this, "NatsTopic[" + configuration.getTopic() + "]", configuration.getPoolSize());
+    }
+    
+    public ExecutorService createProducerExecutor() {
+        return getCamelContext().getExecutorServiceManager().newSingleThreadExecutor(this, "NatsProducer[" + configuration.getTopic() + "]");
     }
 
     @Override

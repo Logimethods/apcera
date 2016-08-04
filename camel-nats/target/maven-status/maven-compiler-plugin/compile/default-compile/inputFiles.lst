@@ -1,10 +1,12 @@
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\org\apache\camel\component\nats\NatsConsumer.java
+C:\LogimethodsGit\apcera\camel-nats\src\main\java\io\nats\connector\DataFlowHandlerOld.java
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\org\apache\camel\component\nats\NatsPropertiesConstants.java
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\io\nats\connector\Connector.java
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\io\nats\connector\plugin\NATSConnector.java
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\io\nats\connector\plugin\NATSEvent.java
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\io\nats\connector\plugin\NATSUtilities.java
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\org\apache\camel\component\nats\NatsProducer.java
+C:\LogimethodsGit\apcera\camel-nats\src\main\java\io\nats\connector\NatsPlugin.java
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\io\nats\connector\plugin\NATSConnectorPlugin.java
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\org\apache\camel\component\nats\NatsEndpoint.java
 C:\LogimethodsGit\apcera\camel-nats\src\main\java\org\apache\camel\component\nats\NatsConfiguration.java

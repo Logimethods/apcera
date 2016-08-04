@@ -11,23 +11,23 @@ package io.nats.connector;
 import io.nats.client.*;
 import io.nats.connector.plugin.NATSConnector;
 import io.nats.connector.plugin.NATSConnectorPlugin;
-import io.nats.connector.plugin.NATSEvent;
 
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import io.nats.connector.plugin.NATSEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class DataFlowHandler implements MessageHandler, NATSConnector {
+public class DataFlowHandler implements MessageHandler, NATSConnector, Runnable {
 
     private NATSConnectorPlugin plugin     = null;
 
     // Rely heavily on NATS locking, but protect data structures here
     // with the plugin lock.
     private Object              pluginLock   = new Object();
-    private HashMap             subscriptions = new HashMap<String, Subscription>();
+    private HashMap<String, Subscription>             subscriptions = new HashMap<String, Subscription>();
 
     private Properties          properties = null;
     private Logger              logger     = null;
@@ -156,6 +156,8 @@ class DataFlowHandler implements MessageHandler, NATSConnector {
      */
     public void onMessage(Message m)
     {
+        logger.debug("Received Message:" + m.toString());
+        
         try
         {
             plugin.onNATSMessage(m);
@@ -207,12 +209,10 @@ class DataFlowHandler implements MessageHandler, NATSConnector {
             logger.error("Runtime exception thrown by plugin (OnShutdown): ", e);
         }
     }
-
-    public void process()
+    @Override
+    public void run()
     {
-        logger.debug("Setting up NATS Connector.");
-
-        boolean running = true;
+        logger.info("Setting up NATS Connector.");
 
         try {
             // connect to the NATS cluster
@@ -224,6 +224,8 @@ class DataFlowHandler implements MessageHandler, NATSConnector {
             cleanup();
             return;
         }
+        
+        isRunning.set(true);
 
         if (!invokeOnNatsInitialized())
         {
@@ -235,6 +237,7 @@ class DataFlowHandler implements MessageHandler, NATSConnector {
         logger.info("The NATS Connector is running.");
 
         isRunning.set(true);
+        boolean running = true;
 
         while (running)
         {
@@ -313,10 +316,11 @@ class DataFlowHandler implements MessageHandler, NATSConnector {
 
     public void shutdown()
     {
+    	
         if (isRunning.get() == false)
             return;
 
-        logger.debug("NATS connector is shutting down.");
+        logger.info("NATS connector is shutting down.");
 
         isRunning.set(false);
 
@@ -335,6 +339,31 @@ class DataFlowHandler implements MessageHandler, NATSConnector {
     {
         subscribe(subject, null, this);
     }
+    
+    public void autoUnsubscribe(String subject, int max)
+    {
+        if (subject == null)
+            return;
+
+        synchronized (pluginLock)
+        {
+            logger.debug("Plugin unsubscribe after max num of messages from '{}'.", subject);
+
+            Subscription s = (Subscription) subscriptions.get(subject);
+            if (s == null) {
+                logger.debug("Subscription not found.");
+                return;
+            }
+
+            try {
+                s.autoUnsubscribe(max);
+            } catch (Exception e) {
+                logger.debug("Plugin unsubscribe failed.", e);
+                return;
+            }
+        }
+    }
+
 
     public void subscribe(String subject, String queue, MessageHandler handler) throws Exception {
 
@@ -343,8 +372,9 @@ class DataFlowHandler implements MessageHandler, NATSConnector {
 
         synchronized (pluginLock)
         {
-                logger.debug("Plugin subscribe to '{}', queue '{}'.", subject,
-                    (queue == null ? "(none)" : queue));
+        	String name = Long.toString(Thread.currentThread().getId());
+            logger.info("Plugin subscribe on thread: " + name);
+                   
 
             // do not subscribe twice.
             if (subscriptions.containsKey(subject)) {
@@ -386,30 +416,6 @@ class DataFlowHandler implements MessageHandler, NATSConnector {
 
             try {
                 s.unsubscribe();
-            } catch (Exception e) {
-                logger.debug("Plugin unsubscribe failed.", e);
-                return;
-            }
-        }
-    }
-    
-    public void autoUnsubscribe(String subject, int max)
-    {
-        if (subject == null)
-            return;
-
-        synchronized (pluginLock)
-        {
-            logger.debug("Plugin unsubscribe after max num of messages from '{}'.", subject);
-
-            Subscription s = (Subscription) subscriptions.get(subject);
-            if (s == null) {
-                logger.debug("Subscription not found.");
-                return;
-            }
-
-            try {
-                s.autoUnsubscribe(max);
             } catch (Exception e) {
                 logger.debug("Plugin unsubscribe failed.", e);
                 return;
