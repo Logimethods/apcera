@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="org.apache.camel.component.nats.NatsConsumerMaxMessagesTest" time="0.024" errors="0" skipped="0">
+<testsuite tests="1" failures="1" name="org.apache.camel.component.nats.NatsConsumerMaxMessagesTest" time="0.023" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java64\jdk1.8.0_74\jre\bin"/>
@@ -27,7 +27,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\Igor\WorkspaceApcera\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf5946699676179127157.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\Igor\WorkspaceApcera\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf614329402001933246.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Java64\jdk1.8.0_74\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\ProgramData\Oracle\Java\javapath;C:\tibco\tibrv\8.4\bin;C:\app\Igor\product\11.2.0\dbhome_1\bin;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\OpenCL SDK\3.0\bin\x86;C:\Program Files (x86)\Intel\OpenCL SDK\3.0\bin\x64;C:\Program Files (x86)\Common Files\Lenovo;C:\SWTOOLS\ReadyApps;C:\Program Files (x86)\Lenovo\Access Connections\;C:\apache-maven-3.3.9\bin;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Apcera\apcera-setup;C:\RedHat\jws-3.0\bin;C:\RedHat\jws-httpd-3.0\bin;C:\Program Files (x86)\Skype\Phone\;C:\Go\bin;C:\Java64\jdk1.8.0_74;C:\scala\bin;C:\spark-1.6.0-bin-hadoop2.6\bin;C:\gnatsd-v0.8.0-windows-386;;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
@@ -61,5 +61,98 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="org.apache.camel.component.nats.NatsConsumerMaxMessagesTest" name="testMaxConsumer" time="0.024"/>
+  <testcase classname="org.apache.camel.component.nats.NatsConsumerMaxMessagesTest" name="testMaxConsumer" time="0.023">
+    <failure message="mock://result Received message count. Expected: &lt;5&gt; but was: &lt;11&gt;" type="java.lang.AssertionError">java.lang.AssertionError: mock://result Received message count. Expected: &lt;5&gt; but was: &lt;11&gt;
+	at org.apache.camel.component.mock.MockEndpoint.fail(MockEndpoint.java:1452)
+	at org.apache.camel.component.mock.MockEndpoint.assertEquals(MockEndpoint.java:1434)
+	at org.apache.camel.component.mock.MockEndpoint.doAssertIsSatisfied(MockEndpoint.java:407)
+	at org.apache.camel.component.mock.MockEndpoint.assertIsSatisfied(MockEndpoint.java:386)
+	at org.apache.camel.component.mock.MockEndpoint.assertIsSatisfied(MockEndpoint.java:374)
+	at org.apache.camel.component.nats.NatsConsumerMaxMessagesTest.testMaxConsumer(NatsConsumerMaxMessagesTest.java:51)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.TestWatcher$1.evaluate(TestWatcher.java:55)
+	at org.junit.rules.RunRules.evaluate(RunRules.java:20)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+</failure>
+    <system-out>12:21| INFO | CamelTestSupport.java 220 | ********************************************************************************
+12:21| INFO | CamelTestSupport.java 221 | Testing: testMaxConsumer(org.apache.camel.component.nats.NatsConsumerMaxMessagesTest)
+12:21| INFO | CamelTestSupport.java 222 | ********************************************************************************
+12:21| INFO | DefaultTypeConverter.java 56 | Loaded 189 type converters
+12:21| INFO | DefaultCamelContext.java 2897 | Apache Camel 2.18-SNAPSHOT (CamelContext: camel-3) is starting
+12:21| INFO | DefaultManagementStrategy.java 238 | JMX is disabled
+12:21| INFO | DefaultCamelContext.java 3144 | StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+12:21| INFO | NatsConnector.java 172 | Setting up NATS Connector.
+12:21| INFO | CamelNatsAdapter.java 46 | Received NATS consumer onStartup event on thread:Camel (camel-3) thread #12 - NatsProducer[test]
+12:21| INFO | CamelNatsAdapter.java 56 | Received NATS producer onInitialized event
+12:21| INFO | NatsConnector.java 194 | The NATS Connector is running.
+12:21| INFO | NatsProducer.java 104 | Started NATS Producer
+12:21| INFO | DefaultCamelContext.java 3685 | Route: route4 started and consuming from: direct://send
+12:21| INFO | NatsConsumer.java 60 | Starting Nats Consumer
+12:21| INFO | NatsConnector.java 172 | Setting up NATS Connector.
+12:21| INFO | CamelNatsAdapter.java 46 | Received NATS consumer onStartup event on thread:Camel (camel-3) thread #13 - NatsTopic[test]
+12:21| INFO | CamelNatsAdapter.java 61 | Received NATS consumer onInitialized event
+12:21| INFO | NatsConnector.java 194 | The NATS Connector is running.
+12:21| INFO | NatsConsumer.java 90 | Started NATS Consumer
+12:21| INFO | DefaultCamelContext.java 3685 | Route: route5 started and consuming from: nats://localhost:4222?maxMessages=5&amp;poolSize=1&amp;topic=test
+12:21| INFO | DefaultCamelContext.java 2939 | Total 2 routes, of which 2 are started.
+12:21| INFO | DefaultCamelContext.java 2940 | Apache Camel 2.18-SNAPSHOT (CamelContext: camel-3) started in 0.010 seconds
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | NatsProducer.java 59 | Publishing to topic: test
+12:21| INFO | MockEndpoint.java 385 | Asserting: mock://result is satisfied
+12:21| INFO | CamelTestSupport.java 363 | ********************************************************************************
+12:21| INFO | CamelTestSupport.java 364 | Testing done: testMaxConsumer(org.apache.camel.component.nats.NatsConsumerMaxMessagesTest)
+12:21| INFO | CamelTestSupport.java 365 | Took: 0.005 seconds (5 millis)
+12:21| INFO | CamelTestSupport.java 392 | ********************************************************************************
+12:21| INFO | DefaultCamelContext.java 3165 | Apache Camel 2.18-SNAPSHOT (CamelContext: camel-3) is shutting down
+12:21| INFO | DefaultShutdownStrategy.java 196 | Starting to graceful shutdown 2 routes (timeout 10 seconds)
+12:21| INFO | CamelNatsAdapter.java 128 | Shutting down NatsConnector (Consumer)on thread: Camel (camel-3) thread #13 - NatsTopic[test]
+12:21| INFO | DefaultShutdownStrategy.java 576 | Route: route5 shutdown complete, was consuming from: nats://localhost:4222?maxMessages=5&amp;poolSize=1&amp;topic=test
+12:21| INFO | DefaultShutdownStrategy.java 669 | Route: route4 shutdown complete, was consuming from: direct://send
+12:21| INFO | DefaultShutdownStrategy.java 260 | Graceful shutdown of 2 routes completed in 0 seconds
+12:21| INFO | NatsProducer.java 110 | Stopping Nats Producer
+12:21| INFO | CamelNatsAdapter.java 136 | Shutting down NatsConnector (Producer): 
+12:21| INFO | DefaultCamelContext.java 3254 | Apache Camel 2.18-SNAPSHOT (CamelContext: camel-3) uptime 0.019 seconds
+12:21| INFO | DefaultCamelContext.java 3255 | Apache Camel 2.18-SNAPSHOT (CamelContext: camel-3) is shutdown in 0.003 seconds
+</system-out>
+  </testcase>
 </testsuite>

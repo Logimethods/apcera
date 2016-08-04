@@ -16,10 +16,8 @@
  */
 package org.apache.camel.component.nats;
 
-import io.nats.connector.DataFlowHandler;
-import io.nats.connector.NatsPlugin;
-import io.nats.connector.plugin.NATSConnector;
-import io.nats.connector.plugin.NATSConnectorPlugin;
+import io.nats.connector.NatsConnector;
+import io.nats.connector.CamelNatsAdapter;
 
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
@@ -38,8 +36,8 @@ public class NatsProducer extends DefaultProducer{
     private CountDownLatch startupLatch = null;
     private CountDownLatch shutdownLatch = null;
     
-    private NATSConnectorPlugin plugin = null;
-    private NATSConnector connector = null;
+    private CamelNatsAdapter natsAdapter = null;
+    private NatsConnector connector = null;
 	private ExecutorService executor;
     
     public NatsProducer(NatsEndpoint endpoint) {
@@ -72,7 +70,7 @@ public class NatsProducer extends DefaultProducer{
     
     public void publish(String subject, String replySubject, byte[] payload) throws Exception{
 		
-    	plugin.publish(subject, replySubject, payload);
+    	natsAdapter.publish(subject, replySubject, payload);
 	}
     
     @Override //DefaultProducer
@@ -82,8 +80,8 @@ public class NatsProducer extends DefaultProducer{
         startupLatch = new CountDownLatch(1);       
         
         Properties natsProperties = getEndpoint().getNatsConfiguration().createProperties();
-        plugin = new NatsPlugin(this);
-        connector = new DataFlowHandler(plugin, natsProperties, logger);               
+        natsAdapter = new CamelNatsAdapter(this);
+        connector = new NatsConnector(natsAdapter, natsProperties, logger);               
         executor = getEndpoint().createProducerExecutor();
         executor.submit((Runnable)connector);      
        

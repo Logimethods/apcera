@@ -7,80 +7,74 @@ import org.apache.camel.component.nats.NatsProducer;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 
-import io.nats.client.ConnectionFactory;
+import io.nats.client.ConnectionEvent;
 import io.nats.client.Message;
+import io.nats.client.NATSException;
 import io.nats.client.Subscription;
-import io.nats.connector.plugin.NATSConnector;
-import io.nats.connector.plugin.NATSConnectorPlugin;
-import io.nats.connector.plugin.NATSEvent;
 
-public class NatsPlugin implements NATSConnectorPlugin{
+public class CamelNatsAdapter {
 	
 
-	private NATSConnector natsConnector;
+	private NatsConnector dataFlowHandler;
 	private Logger logger;	
 	private NatsConsumer natsConsumer = null;
 	private NatsProducer natsProducer = null;
 	private Subscription sid;
-	private boolean subscribed = false;
 	
-	enum PluginType{
+	enum AdapterType{
 		PRODUCER,
 		CONSUMER
 	};
-	PluginType pluginType;
+	AdapterType pluginType;
 	
 
-	public NatsPlugin(NatsConsumer natsConsumer) {
+	public CamelNatsAdapter(NatsConsumer natsConsumer) {
 		this.natsConsumer = natsConsumer;
-		this.pluginType = PluginType.CONSUMER;
+		this.pluginType = AdapterType.CONSUMER;
 		
 	}
 
-	public NatsPlugin(NatsProducer natsProducer) {
+	public CamelNatsAdapter(NatsProducer natsProducer) {
 		this.natsProducer = natsProducer;
-		this.pluginType = PluginType.PRODUCER;
+		this.pluginType = AdapterType.PRODUCER;
 	}
 
-	@Override
-		public boolean onStartup(Logger logger, ConnectionFactory factory) {
+//	@Override
+		public boolean onStartup(Logger logger) {
 			  this.logger = logger;
 			  String name = Thread.currentThread().getName();
 			  logger.info("Received NATS consumer onStartup event on thread:" + name);
 		      return true;
 		}
 
-		@Override
-		public boolean onNatsInitialized(NATSConnector connector) {
+		public boolean onNatsInitialized(NatsConnector dataFlowHandler) {
 		
 			
-			this.natsConnector = connector;		
+			this.dataFlowHandler = dataFlowHandler;		
 			
-			if(pluginType == PluginType.PRODUCER){
+			if(pluginType == AdapterType.PRODUCER){
 				logger.info("Received NATS producer onInitialized event");
 				if (natsProducer.getStartupLatch() != null)
 					natsProducer.getStartupLatch().countDown();
 			}
-			else if(pluginType == PluginType.CONSUMER){
+			else if(pluginType == AdapterType.CONSUMER){
 				logger.info("Received NATS consumer onInitialized event");
 		        try
 		        {
 		        	if (ObjectHelper.isNotEmpty(natsConsumer.getEndpoint().getNatsConfiguration().getQueueName())) {
-		        		natsConnector.subscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic(),
+		        		dataFlowHandler.subscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic(),
 		        				natsConsumer.getEndpoint().getNatsConfiguration().getQueueName());
 		        		if (ObjectHelper.isNotEmpty(natsConsumer.getEndpoint().getNatsConfiguration().getMaxMessages())) {
-		        			natsConnector.autoUnsubscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic(),
+		        			dataFlowHandler.autoUnsubscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic(),
 		        					Integer.parseInt(natsConsumer.getEndpoint().getNatsConfiguration().getMaxMessages()));
 		        		}
-		        		subscribed = true;
 		        	}
 		        	else{
-		        		connector.subscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic());
+		        		dataFlowHandler.subscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic());
 		        		if (ObjectHelper.isNotEmpty(natsConsumer.getEndpoint().getNatsConfiguration().getMaxMessages())) {
-		        			natsConnector.autoUnsubscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic(),
+		        			dataFlowHandler.autoUnsubscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic(),
 		        					Integer.parseInt(natsConsumer.getEndpoint().getNatsConfiguration().getMaxMessages()));
 		        		}
-		        		subscribed = true;
 		        	}
 		        }
 		        catch (Throwable e) {
@@ -95,11 +89,8 @@ public class NatsPlugin implements NATSConnectorPlugin{
 		        return true;
 		}
 
-		@Override
 		public void onNATSMessage(Message msg) {
 			
-			String name = Thread.currentThread().getName();
-			//logger.info("Received message on thread: " + name + " ; " + msg.toString());
 			 Exchange exchange = natsConsumer.getEndpoint().createExchange();
 	         exchange.getIn().setBody(msg);
 	         exchange.getIn().setHeader(NatsConstants.NATS_MESSAGE_TIMESTAMP, System.currentTimeMillis());
@@ -111,66 +102,44 @@ public class NatsPlugin implements NATSConnectorPlugin{
 	         }	
 		}
 
-		@Override
-		public void onNATSEvent(NATSEvent event, String message) {
-			logger.info("Received NATS consumer onNATSEvent event");
-			switch (event)
-	        {
-	            case ASYNC_ERROR:
-	                logger.error("NATS Event Async error: " + message);
-	                break;
-	            case RECONNECTED:
-	                logger.info("NATS Event Reconnected: " + message);
-	                break;
-	            case DISCONNECTED:
-	                logger.info("NATS Event Disconnected: " + message);
-	                break;
-	            case CLOSED:
-	                logger.info("NATS Event Closed: " + message);
-	                onClose();
-	                break;
-	            default:
-	                logger.info("NATS Event Unrecognized event: " + message);
-	        }		
-		}
 
-		private void onClose() {
+		void onClose(ConnectionEvent event) {
 			
-			if(pluginType == PluginType.PRODUCER){	    	     
+			if(pluginType == AdapterType.PRODUCER){	    	     
 				if(natsProducer.getShutdownLatch() != null)
 					natsProducer.getShutdownLatch().countDown();
 			 }
-			else if(pluginType == PluginType.CONSUMER){	    	     
+			else if(pluginType == AdapterType.CONSUMER){	    	     
 				if(natsConsumer.getShutdownLatch() != null)
 					natsConsumer.getShutdownLatch().countDown();
 			 }
 			
 		}
 
-		@Override
+//		@Override
 		public void onShutdown() {	
 			
-		     if(natsConnector == null)
+		     if(dataFlowHandler == null)
 		    	 return;
 		     
 		     String name = Thread.currentThread().getName();
 		     
-		     if(pluginType == PluginType.CONSUMER){	
+		     if(pluginType == AdapterType.CONSUMER){	
 		    	 logger.info("Shutting down NatsConnector (Consumer)on thread: " + name);
 			     try {
-			    	 natsConnector.unsubscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic());
+			    	 dataFlowHandler.unsubscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic());
 			     } catch (Exception e) {
 			    	 natsConsumer.getExceptionHandler().handleException("Error during unsubscribing", e);
 			     }	
 		     }
-		     else if(pluginType == PluginType.PRODUCER){	    	        
+		     else if(pluginType == AdapterType.PRODUCER){	    	        
 		    	 logger.info("Shutting down NatsConnector (Producer): ");
 		     }
 		}
 
-		@Override
+//		@Override
 		public void publish(String subject, String replySubject, byte[] payload) throws Exception {
-			if (natsConnector == null){
+			if (dataFlowHandler == null){
 				logger.error("NATS connection is not initialized");
 			    throw new Exception("Invalid State Nats Connector is null");
 			}      
@@ -183,14 +152,29 @@ public class NatsPlugin implements NATSConnectorPlugin{
 		        
 			m.setData(payload, 0, payload.length);
 		
-			natsConnector.publish(m);
+			dataFlowHandler.publish(m);
 		
 			try {
-				natsConnector.flush();
+				dataFlowHandler.flush();
 		    }
 		    catch (Exception e){
 		       	logger.error("Error with flush:  ", e);
 		    }
+			
+		}
+
+		public void onReconnect(ConnectionEvent event) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onException(NATSException ex) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onDisconnect(ConnectionEvent event) {
+			// TODO Auto-generated method stub
 			
 		}
 }

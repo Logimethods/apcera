@@ -21,9 +21,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import io.nats.connector.DataFlowHandler;
-import io.nats.connector.NatsPlugin;
-import io.nats.connector.plugin.NATSConnector;
+import io.nats.connector.NatsConnector;
+import io.nats.connector.CamelNatsAdapter;
 
 import org.apache.camel.Processor;
 import org.apache.camel.impl.DefaultConsumer;
@@ -37,13 +36,12 @@ public class NatsConsumer extends DefaultConsumer {
 
 
     private ExecutorService executor;
-    NATSConnector natsConnector = null;
      
     private CountDownLatch startupLatch = null;
     private CountDownLatch shutdownLatch = null;
 
     //private NATSConnectorPlugin plugins[] = null;
-    private NATSConnector connectors[] = null;
+    private NatsConnector connectors[] = null;
     private int poolSize;
 
     public NatsConsumer(NatsEndpoint endpoint, Processor processor) {
@@ -66,10 +64,10 @@ public class NatsConsumer extends DefaultConsumer {
    	 	Properties natsProperties = getEndpoint().getNatsConfiguration().createProperties();
    	 	executor = getEndpoint().createConsumerExecutor();
    	 	poolSize = getEndpoint().getNatsConfiguration().getPoolSize();
-   	 	connectors = new NATSConnector[poolSize];
+   	 	connectors = new NatsConnector[poolSize];
    	 	
    	 	for (short i = 0; i < poolSize; i++){
-	   	 	connectors[i] = new DataFlowHandler(new NatsPlugin(this), natsProperties, logger);                  	 	
+	   	 	connectors[i] = new NatsConnector(new CamelNatsAdapter(this), natsProperties, logger);                  	 	
 	   	 	executor.submit((Runnable)connectors[i]);   
    	 	}
    	   	 	  	 	

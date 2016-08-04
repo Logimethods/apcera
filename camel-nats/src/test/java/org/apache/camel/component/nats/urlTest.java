@@ -5,7 +5,6 @@ import java.util.concurrent.Executors;
 
 import org.apache.camel.spi.ExecutorServiceManager;
 
-import io.nats.connector.Connector;
 
 public class urlTest {
 
