@@ -17,10 +17,11 @@ public class Tracer{
 	public void trace(Exchange exchange) throws Exception {
 	
 		String threadName = (String)exchange.getIn().getHeader("THREAD_NAME");		
-		LOG.info("Instance Id: " + instanceId + "; Thread Id: " + threadName);
+		//LOG.info("Instance Id: " + instanceId + "; Thread Id: " + threadName);
 		
 		String message = (String)exchange.getIn().getBody(String.class);
-		LOG.info("Message: " + message.toString());
+		LOG.info("Processing Message: " + message.toString()+ " On thread: " + threadName);
+		Thread.sleep(2000);
 		
 	}
 	public void start () {
