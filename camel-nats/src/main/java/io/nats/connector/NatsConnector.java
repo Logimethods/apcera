@@ -5,19 +5,17 @@ package io.nats.connector;
 import io.nats.client.*;
 
 import java.util.Properties;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.slf4j.Logger;
 
 public class NatsConnector implements MessageHandler, Runnable {
 
     private CamelNatsAdapter 	camelNatsAdapter = null;
-    private Subscription     	subscription = null;
+    private AsyncSubscription     	subscription = null;
     private Properties       	properties = null;
     
     private Logger            	logger     = null;
-    private AtomicBoolean     	isRunning   = new AtomicBoolean();
-    private Object              runningLock = new Object();
+    private volatile boolean    running   = false;
 
     private ConnectionFactory 	connectionFactory = null;
     private Connection        	connection        = null;
@@ -34,86 +32,86 @@ public class NatsConnector implements MessageHandler, Runnable {
     {
         @Override
         public void onReconnect(ConnectionEvent event)
-        {
-            try {
-                String desc = "NATS Connection reconnected.";
-                logger.info(desc);
-                camelNatsAdapter.onReconnect(event);
-            }
-            catch (Exception e) {
-                logger.error("Runtime exception in plugin method OnNATSEvent (RECONNECTED): ", e);
-            }
+        {           
+        	camelNatsAdapter.onReconnect(event);
         }
 
         @Override
         public void onClose(ConnectionEvent event)
         {
-            try {
-                camelNatsAdapter.onClose(event);
-            }
-            catch (Exception e) {
-                logger.error("Runtime exception in plugin method OnNATSEvent (CLOSED): ", e);
-            }
+        	camelNatsAdapter.onClose(event);
         }
 
         public void onException(NATSException ex)
-        {
-            try {
-                logger.error("Asynchronous error: exception: {}",
+        {           
+        	logger.error("Asynchronous error: exception: {}",
                         ex.getMessage());
 
-                camelNatsAdapter.onException(ex);
-            }
-            catch (Exception e) {
-                logger.error("Runtime exception in plugin method OnNATSEvent (EXCEPTION): ", e);
-            }
+            camelNatsAdapter.onException(ex);        
         }
 
         @Override
-        public void onDisconnect(ConnectionEvent event) {
-            try {
-
-                String desc = "NATS Connection disconnected.";
-                logger.debug(desc);
-
-                camelNatsAdapter.onDisconnect(event);
-            }
-            catch (Exception e) {
-                logger.error("Runtime exception in plugin method OnNATSEvent (DISCONNECTED): ", e);
-            }
+        public void onDisconnect(ConnectionEvent event) {           
+        	camelNatsAdapter.onDisconnect(event);          
         }
     }
 
-    private void setup() throws Exception
+    @Override
+    public void run()
+    {
+        logger.info("Setting up NATS Connector.");
+
+        try {
+            connectToNats();
+        }
+        catch (Exception e) {
+            logger.error("Setup error: " + e.getMessage());
+            logger.debug("Exception: ", e);
+            disconnectFromNats();
+            return;
+        }
+        
+        camelNatsAdapter.onNatsInitialized(this);
+        
+        boolean run = true;
+        logger.info("The NATS Connector is running.");
+        running = true;
+
+        while (run)
+        {
+        	run = running;          
+        }
+        logger.info("The NATS Connector is stopping.");
+        
+        disconnectFromNats();
+    }
+    
+    public void shutdown()
+    {
+    	if (!running)
+            return;
+
+    	logger.debug("NATS connector is shutting down.");
+    	running = false;
+    }
+    
+    private void connectToNats() throws Exception
     {
         connectionFactory = new ConnectionFactory(properties);
         EventHandlers eh = new EventHandlers();
-
         connectionFactory.setClosedCallback(eh);
         connectionFactory.setDisconnectedCallback(eh);
         connectionFactory.setExceptionHandler(eh);
         connectionFactory.setReconnectedCallback(eh);
-
-
-        camelNatsAdapter.onStartup(logger);
-
         connection = connectionFactory.createConnection();
-        logger.debug("Connected to NATS cluster.");
+        logger.info("Connected to NATS cluster.");
+        
+        camelNatsAdapter.onStartup(logger);
     }
 
-    private void teardown()
+    private void disconnectFromNats()
     {
-    	invokePluginShutdown();
-        try
-        {
-            if (subscription != null)
-            {
-            	subscription.unsubscribe();
-                subscription.close();
-                subscription = null;
-            }
-        }
-        catch (Exception e) {}
+    	camelNatsAdapter.onShutdown();
 
         try
         {
@@ -122,7 +120,7 @@ public class NatsConnector implements MessageHandler, Runnable {
         }
         catch (Exception e) {}
 
-        logger.debug("Closed connection to NATS cluster.");
+        logger.info("Closed connection to NATS cluster.");
     }
 
     public void onMessage(Message m)
@@ -139,87 +137,10 @@ public class NatsConnector implements MessageHandler, Runnable {
         }
     }
 
-
-    private boolean invokeOnNatsInitialized()
-    {
-        logger.trace("OnNatsInitialized");
-        try
-        {
-            return camelNatsAdapter.onNatsInitialized(this);
-        }
-        catch (Exception e)
-        {
-            logger.error("Runtime exception thrown by plugin (OnNatsInitialized): ", e);
-            return false;
-        }
-    }
-
-    private void invokePluginShutdown()
-    {
-        logger.trace("OnShutdown");
-        try
-        {
-            camelNatsAdapter.onShutdown();
-        }
-        catch (Exception e)
-        {
-            logger.error("Runtime exception thrown by plugin (OnShutdown): ", e);
-        }
-    }
-    @Override
-    public void run()
-    {
-        logger.info("Setting up NATS Connector.");
-
-        try {
-            // connect to the NATS cluster
-            setup();
-        }
-        catch (Exception e) {
-            logger.error("Setup error: " + e.getMessage());
-            logger.debug("Exception: ", e);
-            teardown();
-            return;
-        }
-        
-        boolean run = true;
-
-        if (!invokeOnNatsInitialized())
-        {
-            logger.error("Plugin failed to start.  Exiting.");
-            teardown();
-            return;
-        }
-
-        logger.info("The NATS Connector is running.");
-
-
-        isRunning.set(true);
-
-        while (run)
-        {
-            synchronized(runningLock)
-            {
-                try {
-                    runningLock.wait();
-                }
-                catch (InterruptedException e) {
-                    // As of java 1.6, Object.wait can be woken up spuriously,
-                    // so we need to check if we are still running.
-                }
-
-                run = isRunning.get();
-            }
-        }
-
-
-        teardown();
-    }
-
     public void publish(Message msg)
     {
-        if (isRunning.get() == false)
-            return;
+        if (!running)
+          return;
 
         try {
             connection.publish(msg);
@@ -228,13 +149,11 @@ public class NatsConnector implements MessageHandler, Runnable {
             logger.error("Exception publishing: " + ex.getMessage());
             logger.debug("Exception: " + ex);
         }
-
     }
 
     public void flush() throws Exception
     {
-        // if the connector is shutting down, then we silently fail.
-        if ( isRunning.get() == false )
+        if ( !running )
             return;
 
         if (connection == null)
@@ -249,27 +168,6 @@ public class NatsConnector implements MessageHandler, Runnable {
         }
     }
 
-    public void shutdown()
-    {
-    	   if (isRunning.get() == false)
-               return;
-
-           logger.debug("NATS connector is shutting down.");
-
-           isRunning.set(false);
-
-           synchronized (runningLock)
-           {
-               runningLock.notify();
-           }
-
-    }
-
-    public void subscribe(String subject, MessageHandler handler) throws Exception
-    {
-        subscribe(subject, null, handler);
-    }
-
     public void subscribe(String subject) throws Exception
     {
         subscribe(subject, null, this);
@@ -279,8 +177,7 @@ public class NatsConnector implements MessageHandler, Runnable {
     {
         if (subject == null)
             return;
-
-     
+    
         logger.debug("Plugin unsubscribe after max num of messages from '{}'.", subject);
 
         if (subscription == null) {
@@ -301,7 +198,6 @@ public class NatsConnector implements MessageHandler, Runnable {
         }   
     }
             
-
     public void subscribe(String subject, String queue, MessageHandler handler) throws Exception {
 
         if (subject == null)
@@ -312,15 +208,12 @@ public class NatsConnector implements MessageHandler, Runnable {
             return;
         }
 
-        AsyncSubscription s;
-
         if (queue == null)
-            s = connection.subscribeAsync(subject, handler);
+            subscription = connection.subscribeAsync(subject, handler);
         else
-            s = connection.subscribeAsync(subject, queue, handler);
+        	subscription = connection.subscribeAsync(subject, queue, handler);
 
-        s.start();
-         
+        subscription.start();        
     }
 
     public void subscribe(String subject, String queue) throws Exception {
@@ -329,35 +222,22 @@ public class NatsConnector implements MessageHandler, Runnable {
 
     public void unsubscribe(String subject)
     {
-        if (subject == null)
+            
+    	logger.info("Plugin unsubscribe from '{}'.", subject);
+    	if (subscription == null || !subscription.getSubject().equalsIgnoreCase(subject)) {
+            logger.info("Subscription not found.");
             return;
+        }
 
-       
-            logger.debug("Plugin unsubscribe from '{}'.", subject);
+        try {
+        	subscription.unsubscribe();
+        } catch (Exception e) {
+            logger.debug("Plugin unsubscribe failed.", e);
+            return;
+        }
 
-            if (subscription == null) {
-                logger.debug("Subscription not found.");
-                return;
-            }
-
-            try {
-            	subscription.unsubscribe();
-            } catch (Exception e) {
-                logger.debug("Plugin unsubscribe failed.", e);
-                return;
-            }
+            
         
     }
-
-    public Connection getConnection()
-    {
-        return connection;
-    }
-
-    public ConnectionFactory getConnectionFactory()
-    {
-        return connectionFactory;
-    }
-
 
 }

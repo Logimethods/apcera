@@ -57,7 +57,7 @@ public class NatsConsumerMaxMessagesTest extends CamelTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:send").to("nats://localhost:4222?topic=test");
-                from("nats://localhost:4222?topic=test&maxMessages=5&poolSize=1").to(mockResultEndpoint);
+                from("nats://localhost:4222?topic=test&maxMessages=5&poolSize=1&queueName=test").to(mockResultEndpoint);
             }
         };
     }

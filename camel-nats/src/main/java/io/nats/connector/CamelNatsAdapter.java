@@ -91,6 +91,8 @@ public class CamelNatsAdapter {
 
 		public void onNATSMessage(Message msg) {
 			
+			 logger.info("Received NATS message: " + msg.toString());
+			
 			 Exchange exchange = natsConsumer.getEndpoint().createExchange();
 	         exchange.getIn().setBody(msg);
 	         exchange.getIn().setHeader(NatsConstants.NATS_MESSAGE_TIMESTAMP, System.currentTimeMillis());
@@ -122,10 +124,8 @@ public class CamelNatsAdapter {
 		     if(dataFlowHandler == null)
 		    	 return;
 		     
-		     String name = Thread.currentThread().getName();
-		     
 		     if(pluginType == AdapterType.CONSUMER){	
-		    	 logger.info("Shutting down NatsConnector (Consumer)on thread: " + name);
+		    	 logger.info("Shutting down NatsConnector (Consumer)");
 			     try {
 			    	 dataFlowHandler.unsubscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic());
 			     } catch (Exception e) {

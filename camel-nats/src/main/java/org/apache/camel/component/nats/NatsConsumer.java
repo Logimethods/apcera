@@ -74,7 +74,7 @@ public class NatsConsumer extends DefaultConsumer {
    	 	// Wait for connector to fully initialize
         boolean initialized = true;
         try{
-        	//initialized = startupLatch.await(5, TimeUnit.SECONDS);
+        	//initialized = startupLatch.await(10, TimeUnit.SECONDS);
         	getStartupLatch().await();
         }
         catch(InterruptedException e){

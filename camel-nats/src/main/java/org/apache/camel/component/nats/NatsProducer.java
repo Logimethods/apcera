@@ -86,10 +86,10 @@ public class NatsProducer extends DefaultProducer{
         executor.submit((Runnable)connector);      
        
         // Wait for connector to fully initialize
-        boolean initialized = false;
+        boolean initialized = true;
         try{
-        	initialized = startupLatch.await(10, TimeUnit.SECONDS);
-        	//startupLatch.await();
+        	//initialized = startupLatch.await(10, TimeUnit.SECONDS);
+        	startupLatch.await();
         }
         catch(InterruptedException e){
         	logger.error("Nats Producer initilization was interrupted"); 

@@ -55,7 +55,7 @@ public class NatsConfiguration {
     @UriParam(label = "consumer")
     private String maxMessages;
     @UriParam(label = "consumer", defaultValue = "1")
-    private int poolSize = 2;
+    private int poolSize = 1;
     /**
      * URLs to one or more NAT servers. Use comma to separate URLs when specifying multiple servers.
      */
