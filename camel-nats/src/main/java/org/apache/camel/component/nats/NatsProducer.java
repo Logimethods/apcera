@@ -33,12 +33,12 @@ import org.slf4j.LoggerFactory;
 public class NatsProducer extends DefaultProducer{
     
     private static final Logger logger = LoggerFactory.getLogger(NatsProducer.class);
-    private CountDownLatch startupLatch = null;
-    private CountDownLatch shutdownLatch = null;
+    private CountDownLatch 		startupLatch = null;
+    private CountDownLatch 		shutdownLatch = null;
     
-    private CamelNatsAdapter natsAdapter = null;
-    private NatsConnector connector = null;
-	private ExecutorService executor;
+    private CamelNatsAdapter 	natsAdapter = null;
+    private NatsConnector 		connector = null;
+	private ExecutorService 	executor = null;
     
     public NatsProducer(NatsEndpoint endpoint) {
         super(endpoint);
@@ -77,7 +77,7 @@ public class NatsProducer extends DefaultProducer{
     protected void doStart() throws Exception {
         super.doStart();
         logger.debug("Starting Nats Producer");    
-        startupLatch = new CountDownLatch(1);       
+        startupLatch = new CountDownLatch(1);  
         
         Properties natsProperties = getEndpoint().getNatsConfiguration().createProperties();
         natsAdapter = new CamelNatsAdapter(this);

@@ -1,6 +1,8 @@
 C:\LogimethodsGit\apcera\camel-nats\src\test\java\org\apache\camel\component\nats\NatsProducerTest.java
+C:\LogimethodsGit\apcera\camel-nats\src\test\java\org\apache\camel\component\nats\ApceraEnvProducerTest.java
 C:\LogimethodsGit\apcera\camel-nats\src\test\java\org\apache\camel\component\nats\NatsConsumerTest.java
+C:\LogimethodsGit\apcera\camel-nats\src\test\java\org\apache\camel\component\nats\NatsTestConnector.java
 C:\LogimethodsGit\apcera\camel-nats\src\test\java\org\apache\camel\component\nats\NatsConsumerMaxMessagesQueueTest.java
 C:\LogimethodsGit\apcera\camel-nats\src\test\java\org\apache\camel\component\nats\NatsConsumerLoadTest.java
+C:\LogimethodsGit\apcera\camel-nats\src\test\java\org\apache\camel\component\nats\threadTest.java
 C:\LogimethodsGit\apcera\camel-nats\src\test\java\org\apache\camel\component\nats\NatsConsumerMaxMessagesTest.java
-C:\LogimethodsGit\apcera\camel-nats\src\test\java\org\apache\camel\component\nats\urlTest.java

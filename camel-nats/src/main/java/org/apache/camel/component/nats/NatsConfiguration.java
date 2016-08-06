@@ -56,6 +56,8 @@ public class NatsConfiguration {
     private String maxMessages;
     @UriParam(label = "consumer", defaultValue = "1")
     private int poolSize = 1;
+    
+    private boolean cloudEnvironment = false;
     /**
      * URLs to one or more NAT servers. Use comma to separate URLs when specifying multiple servers.
      */
@@ -245,4 +247,12 @@ public class NatsConfiguration {
         }
         return servers.toString();
     }
+
+	public boolean isCloudEnvironment() {
+		return cloudEnvironment;
+	}
+
+	public void setCloudEnvironment(boolean cloudEnvironment) {
+		this.cloudEnvironment = cloudEnvironment;
+	}
 }

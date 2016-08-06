@@ -1,11 +1,10 @@
 org\apache\camel\component\nats\NatsConsumerTest.class
-org\apache\camel\component\nats\urlTest.class
 org\apache\camel\component\nats\NatsProducerTest$1.class
 org\apache\camel\component\nats\NatsConsumerMaxMessagesTest$1.class
-org\apache\camel\component\nats\NatsConsumerLoadTest.class
 org\apache\camel\component\nats\NatsConsumerMaxMessagesTest.class
-org\apache\camel\component\nats\NatsConsumerTest$1.class
 org\apache\camel\component\nats\NatsConsumerMaxMessagesQueueTest.class
+org\apache\camel\component\nats\NatsConsumerLoadTest$1.class
+org\apache\camel\component\nats\NatsConsumerLoadTest.class
+org\apache\camel\component\nats\NatsConsumerTest$1.class
 org\apache\camel\component\nats\NatsConsumerMaxMessagesQueueTest$1.class
 org\apache\camel\component\nats\NatsProducerTest.class
-org\apache\camel\component\nats\NatsConsumerLoadTest$1.class

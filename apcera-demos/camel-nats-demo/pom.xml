@@ -16,11 +16,11 @@
     
   <dependencies>
      <dependency>
-      <!--groupId>com.logimethods.apcera</groupId-->
-       <groupId>org.apache.camel</groupId>
+      <groupId>com.logimethods.apcera</groupId>
+       <!--groupId>org.apache.camel</groupId-->
       <artifactId>camel-nats</artifactId>
-      <!--version>1.0</version-->
-      <version>${camel.version}</version>
+      <version>1.0</version>
+      <!--version>${camel.version}</version-->
     </dependency>
     <dependency>
   <groupId>org.apache.camel</groupId>

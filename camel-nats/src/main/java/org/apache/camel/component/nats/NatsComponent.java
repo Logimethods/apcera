@@ -32,10 +32,12 @@ public class NatsComponent extends DefaultComponent {
         
         //Determine if NATS server is deployed as stand-alone server or as Apcera service
         if(remaining.substring(0,7).equalsIgnoreCase("Apcera:") == true){
-          //Handle Apcera specific URI through service binding
+            //Handle Apcera specific URI through service binding
         	remaining = remaining.substring(7).toUpperCase() + "_URI";
-        	natsServer = System.getenv("NATS_URI").replace("tcp://","");
+        	natsServer = System.getenv(remaining).replace("tcp://","");
+        	System.out.println("Using Apcera environment var: " + remaining);
         	System.out.println("Using NATS Server from Apcera environment: " + natsServer);
+        	config.setCloudEnvironment(true);
         }   
        
         config.setServers(natsServer);

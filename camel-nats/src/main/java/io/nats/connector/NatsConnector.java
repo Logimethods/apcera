@@ -15,16 +15,18 @@ public class NatsConnector implements MessageHandler, Runnable {
     private Properties       	properties = null;
     
     private Logger            	logger     = null;
-    private volatile boolean    running   = false;
+    private volatile boolean    running    = false;
 
     private ConnectionFactory 	connectionFactory = null;
     private Connection        	connection        = null;
+	private Object 				threadLock        = null;
 
     public NatsConnector(CamelNatsAdapter adapter, Properties props, Logger logger)
     {
         this.camelNatsAdapter = adapter;
         this.properties = props;
         this.logger = logger;
+        this.threadLock = new Object();
     }
 
     class EventHandlers implements ClosedCallback, DisconnectedCallback,
@@ -71,17 +73,24 @@ public class NatsConnector implements MessageHandler, Runnable {
             return;
         }
         
-        camelNatsAdapter.onNatsInitialized(this);
-        
-        boolean run = true;
-        logger.info("The NATS Connector is running.");
+        camelNatsAdapter.onNatsInitialized(this, logger);
+            
         running = true;
 
-        while (run)
+        while (running)
         {
-        	run = running;          
+            logger.info("The NATS Connector is running.");
+            synchronized(threadLock)
+            {
+            	try {
+            		threadLock.wait();
+            	}
+            	catch (InterruptedException e) {
+                      
+            	}
+            }       
         }
-        logger.info("The NATS Connector is stopping.");
+        logger.info("The NATS Connector is exiting.");
         
         disconnectFromNats();
     }
@@ -90,9 +99,16 @@ public class NatsConnector implements MessageHandler, Runnable {
     {
     	if (!running)
             return;
+    	
+      	running = false;
+    	
+        synchronized (threadLock )
+        {
+            threadLock.notifyAll();
+        }
 
-    	logger.debug("NATS connector is shutting down.");
-    	running = false;
+    	logger.debug("Shutting down NatsConnector");
+  
     }
     
     private void connectToNats() throws Exception
@@ -105,8 +121,6 @@ public class NatsConnector implements MessageHandler, Runnable {
         connectionFactory.setReconnectedCallback(eh);
         connection = connectionFactory.createConnection();
         logger.info("Connected to NATS cluster.");
-        
-        camelNatsAdapter.onStartup(logger);
     }
 
     private void disconnectFromNats()

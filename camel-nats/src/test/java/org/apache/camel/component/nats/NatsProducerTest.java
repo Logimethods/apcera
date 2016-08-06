@@ -24,16 +24,9 @@ import org.junit.Test;
 
 //@Ignore("Require a running Nats server")
 public class NatsProducerTest extends CamelTestSupport {
-	
-	
-
-    
+	  
     @Test
     public void sendTest() throws Exception {
-    	
-    	//Check environment 
-    	String url = System.getenv("NATS_URI");
-    	System.out.println("Environment var is: " + url);
     	
         template.sendBody("direct:send", "pippo");
     }

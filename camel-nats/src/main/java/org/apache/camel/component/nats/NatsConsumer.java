@@ -38,9 +38,8 @@ public class NatsConsumer extends DefaultConsumer {
     private ExecutorService executor;
      
     private CountDownLatch startupLatch = null;
-    private CountDownLatch shutdownLatch = null;
+    private CountDownLatch shutdownLatch = null;				
 
-    //private NATSConnectorPlugin plugins[] = null;
     private NatsConnector connectors[] = null;
     private int poolSize;
 
@@ -96,6 +95,7 @@ public class NatsConsumer extends DefaultConsumer {
     	 super.doStop();
     	 
     	 setShutdownLatch(new CountDownLatch(poolSize));
+    	
     	 for (short i = 0; i < poolSize; i++){	   	
 	         if (connectors[i] != null) {
 	         	connectors[i].shutdown();
