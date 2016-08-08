@@ -108,7 +108,6 @@ public class NatsConnector implements MessageHandler, Runnable {
         }
 
     	logger.debug("Shutting down NatsConnector");
-  
     }
     
     private void connectToNats() throws Exception

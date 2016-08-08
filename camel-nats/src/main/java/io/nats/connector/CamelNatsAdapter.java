@@ -1,5 +1,8 @@
 package io.nats.connector;
 
+import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.component.nats.NatsConstants;
 import org.apache.camel.component.nats.NatsConsumer;
@@ -14,7 +17,6 @@ import io.nats.client.Subscription;
 
 public class CamelNatsAdapter {
 	
-
 	private NatsConnector natsConnector;
 	private Logger logger;	
 	private NatsConsumer natsConsumer = null;
@@ -27,20 +29,21 @@ public class CamelNatsAdapter {
 	};
 	AdapterType adapterType;
 	
-	public CamelNatsAdapter(NatsConsumer natsConsumer) {
+	public CamelNatsAdapter(NatsConsumer natsConsumer, Properties natsProperties, Logger logger) {
 		this.natsConsumer = natsConsumer;
-		this.adapterType = AdapterType.CONSUMER;		
+		this.adapterType = AdapterType.CONSUMER;
+		this.natsConnector = new NatsConnector(this, natsProperties, logger);
+		this.logger = logger;
 	}
 
-	public CamelNatsAdapter(NatsProducer natsProducer) {
+	public CamelNatsAdapter(NatsProducer natsProducer, Properties natsProperties, Logger logger) {
 		this.natsProducer = natsProducer;
+		this.logger = logger;
 		this.adapterType = AdapterType.PRODUCER;
+		this.natsConnector = new NatsConnector(this, natsProperties, logger);
 	}
 	
-	public boolean onNatsInitialized(NatsConnector natsConnector, Logger logger) {
-		
-		this.logger = logger;
-		this.natsConnector = natsConnector;		
+	public boolean onNatsInitialized(NatsConnector natsConnector, Logger logger) {	
 		
 		if(adapterType == AdapterType.PRODUCER){
 			logger.info("Received NATS producer onInitialized event");
@@ -79,10 +82,10 @@ public class CamelNatsAdapter {
 	}
 	
 	public void onNATSMessage(Message msg) {
+				
+		logger.info("Received NATS message: " + msg.toString());
 		
-		 logger.info("Received NATS message: " + msg.toString());
-		
-		 Exchange exchange = natsConsumer.getEndpoint().createExchange();
+		Exchange exchange = natsConsumer.getEndpoint().createExchange();
         exchange.getIn().setBody(msg);
         exchange.getIn().setHeader(NatsConstants.NATS_MESSAGE_TIMESTAMP, System.currentTimeMillis());
         exchange.getIn().setHeader(NatsConstants.NATS_SUBSCRIPTION_ID, sid);
@@ -148,18 +151,32 @@ public class CamelNatsAdapter {
 	}
 
 	public void onReconnect(ConnectionEvent event) {
-		// TODO Auto-generated method stub
-		
+	 	logger.info("Adapter Reconnected ", event.toString());		
 	}
 
 	public void onException(NATSException ex) {
-		// TODO Auto-generated method stub
+		logger.info("Adapter Exception ", ex.toString());	
 		
+
+		if(adapterType == AdapterType.PRODUCER){	    	     
+			natsProducer.getExceptionHandler().handleException("Error during processing", ex);
+		 }
+		else if(adapterType == AdapterType.CONSUMER){	    	     
+			natsConsumer.getExceptionHandler().handleException("Error during processing", ex);
+		 }			
+
 	}
 
 	public void onDisconnect(ConnectionEvent event) {
-		// TODO Auto-generated method stub
-		
+		logger.info("Adapter Disconnected ", event.toString());		
+	}
+
+	public void shutdown() {
+		this.natsConnector.shutdown();		
+	}
+
+	public Runnable getConnector() {		
+		return natsConnector;
 	}		
 }
 

@@ -16,7 +16,7 @@
  */
 package org.apache.camel.component.nats;
 
-import io.nats.connector.NatsConnector;
+
 import io.nats.connector.CamelNatsAdapter;
 
 import java.util.Properties;
@@ -37,21 +37,18 @@ public class NatsProducer extends DefaultProducer{
     private CountDownLatch 		shutdownLatch = null;
     
     private CamelNatsAdapter 	natsAdapter = null;
-    private NatsConnector 		connector = null;
 	private ExecutorService 	executor = null;
     
     public NatsProducer(NatsEndpoint endpoint) {
-        super(endpoint);
- 
-     
+        super(endpoint);   
     }
     
-    @Override //DefaultProducer
+    @Override 
     public NatsEndpoint getEndpoint() {
         return (NatsEndpoint) super.getEndpoint();
     }
     
-    @Override //DefaultProducer
+    @Override 
     public void process(Exchange exchange) throws Exception {
         NatsConfiguration config = getEndpoint().getNatsConfiguration();
         String body = exchange.getIn().getMandatoryBody(String.class);
@@ -68,22 +65,21 @@ public class NatsProducer extends DefaultProducer{
         }
     }
     
-    public void publish(String subject, String replySubject, byte[] payload) throws Exception{
-		
+    public void publish(String subject, String replySubject, byte[] payload) throws Exception{		
     	natsAdapter.publish(subject, replySubject, payload);
 	}
     
-    @Override //DefaultProducer
+    @Override 
     protected void doStart() throws Exception {
         super.doStart();
         logger.debug("Starting Nats Producer");    
         startupLatch = new CountDownLatch(1);  
         
         Properties natsProperties = getEndpoint().getNatsConfiguration().createProperties();
-        natsAdapter = new CamelNatsAdapter(this);
-        connector = new NatsConnector(natsAdapter, natsProperties, logger);               
+        natsAdapter = new CamelNatsAdapter(this, natsProperties, logger);
+        //connector = new NatsConnector(natsAdapter, natsProperties, logger);               
         executor = getEndpoint().createProducerExecutor();
-        executor.submit((Runnable)connector);      
+        executor.submit((Runnable)natsAdapter.getConnector());      
        
         // Wait for connector to fully initialize
         boolean initialized = true;
@@ -104,18 +100,19 @@ public class NatsProducer extends DefaultProducer{
         logger.info("Started NATS Producer");
     }
 
-    @Override  //DefaultProducer
+    @Override  
     protected void doStop() throws Exception {
        
     	 logger.info("Stopping Nats Producer");
     	 super.doStop();
         
         shutdownLatch = new CountDownLatch(1);
-        connector.shutdown();       
-        boolean shutdown = true;
+        //connector.shutdown(); 
+        natsAdapter.shutdown();
+        boolean shutdown = false;
         try{
-        	//shutdown = shutdownLatch.await(5, TimeUnit.SECONDS);
-        	shutdownLatch.await();
+        	shutdown = shutdownLatch.await(10, TimeUnit.SECONDS);
+        	//shutdownLatch.await();
         }
         catch(InterruptedException e){
         	logger.error("Nats Producer shutdown was interrupted"); 
@@ -129,11 +126,10 @@ public class NatsProducer extends DefaultProducer{
             if (getEndpoint() != null && getEndpoint().getCamelContext() != null) {
                 getEndpoint().getCamelContext().getExecutorServiceManager().shutdownNow(executor);
             } else {
-                executor.shutdownNow();
+                executor.shutdown();
             }
          }
-         executor = null;      
-      
+         executor = null;           
     }
 
     public CountDownLatch getStartupLatch() {

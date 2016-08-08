@@ -21,7 +21,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import io.nats.connector.NatsConnector;
 import io.nats.connector.CamelNatsAdapter;
 
 import org.apache.camel.Processor;
@@ -34,13 +33,11 @@ public class NatsConsumer extends DefaultConsumer {
 
     private static Logger logger = LoggerFactory.getLogger(NatsConsumer.class);
 
-
-    private ExecutorService executor;
-     
+    private ExecutorService executor;    
     private CountDownLatch startupLatch = null;
     private CountDownLatch shutdownLatch = null;				
 
-    private NatsConnector connectors[] = null;
+    private CamelNatsAdapter natsAdapters[] = null;
     private int poolSize;
 
     public NatsConsumer(NatsEndpoint endpoint, Processor processor) {
@@ -63,11 +60,11 @@ public class NatsConsumer extends DefaultConsumer {
    	 	Properties natsProperties = getEndpoint().getNatsConfiguration().createProperties();
    	 	executor = getEndpoint().createConsumerExecutor();
    	 	poolSize = getEndpoint().getNatsConfiguration().getPoolSize();
-   	 	connectors = new NatsConnector[poolSize];
+   	 	natsAdapters = new CamelNatsAdapter[poolSize];
    	 	
    	 	for (short i = 0; i < poolSize; i++){
-	   	 	connectors[i] = new NatsConnector(new CamelNatsAdapter(this), natsProperties, logger);                  	 	
-	   	 	executor.submit((Runnable)connectors[i]);   
+   	 		natsAdapters[i] = new CamelNatsAdapter(this, natsProperties, logger);                  	 	
+	   	 	executor.submit((Runnable)natsAdapters[i].getConnector());   
    	 	}
    	   	 	  	 	
    	 	// Wait for connector to fully initialize
@@ -97,8 +94,8 @@ public class NatsConsumer extends DefaultConsumer {
     	 setShutdownLatch(new CountDownLatch(poolSize));
     	
     	 for (short i = 0; i < poolSize; i++){	   	
-	         if (connectors[i] != null) {
-	         	connectors[i].shutdown();
+	         if (natsAdapters[i] != null) {
+	        	 natsAdapters[i].shutdown();
 	         }
     	 }
          
