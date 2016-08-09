@@ -159,7 +159,7 @@ public class CamelNatsAdapter {
 		
 
 		if(adapterType == AdapterType.PRODUCER){	    	     
-			natsProducer.getExceptionHandler().handleException("Error during processing", ex);
+			ex.printStackTrace();
 		 }
 		else if(adapterType == AdapterType.CONSUMER){	    	     
 			natsConsumer.getExceptionHandler().handleException("Error during processing", ex);
