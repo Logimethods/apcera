@@ -70,7 +70,14 @@ NATS endpoints support the following options, depending on whether they are acti
 | queueName               | null      | The Queue name if we are using NATS for a queue configuration (consumer).						|
 | maxMessages             | null      | Stop receiving messages from a topic we are subscribing to after maxMessages (consumer).		|
 | poolSize                | 10        | Pool size for consumer workers (consumer).														|
-|--------------------------------------------------------------------------------------------------------------------------------------	|
+
+
+
+# Examples
+
+# Code Examples
+
+# TODO List
 
 
 ## License
