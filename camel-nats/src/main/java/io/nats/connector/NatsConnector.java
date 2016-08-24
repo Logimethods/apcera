@@ -64,7 +64,7 @@ public class NatsConnector implements MessageHandler, Runnable {
     @Override
     public void run()
     {
-        logger.info("Setting up NATS Connector.");
+        logger.debug("Setting up NATS Connector.");
 
         try {
             connectToNats();
@@ -82,7 +82,7 @@ public class NatsConnector implements MessageHandler, Runnable {
 
         while (running)
         {
-            logger.info("The NATS Connector is running.");
+            logger.debug("The NATS Connector is running.");
             synchronized(threadLock)
             {
             	try {
@@ -93,7 +93,7 @@ public class NatsConnector implements MessageHandler, Runnable {
             	}
             }       
         }
-        logger.info("The NATS Connector is exiting.");
+        logger.debug("The NATS Connector is exiting.");
         
         disconnectFromNats();
     }
@@ -125,7 +125,7 @@ public class NatsConnector implements MessageHandler, Runnable {
         	connectionFactory.setReconnectAllowed(false);
         }
         connection = connectionFactory.createConnection();
-        logger.info("Connected to NATS cluster.");
+        logger.debug("Connected to NATS cluster.");
     }
     
     public void reconnectCloudToNats(String servers) throws Exception
@@ -138,7 +138,7 @@ public class NatsConnector implements MessageHandler, Runnable {
         }
      
         connection = connectionFactory.createConnection();
-        logger.info("Reconnected to URL :" + servers);
+        logger.debug("Reconnected to URL :" + servers);
     }
 
     private void disconnectFromNats()
@@ -152,7 +152,7 @@ public class NatsConnector implements MessageHandler, Runnable {
         }
         catch (Exception e) {}
 
-        logger.info("Closed connection to NATS cluster.");
+        logger.debug("Closed connection to NATS cluster.");
     }
 
     public void onMessage(Message m)
@@ -255,9 +255,9 @@ public class NatsConnector implements MessageHandler, Runnable {
     public void unsubscribe(String subject)
     {
             
-    	logger.info("Plugin unsubscribe from '{}'.", subject);
+    	logger.debug("Plugin unsubscribe from '{}'.", subject);
     	if (subscription == null || !subscription.getSubject().equalsIgnoreCase(subject)) {
-            logger.info("Subscription not found.");
+            logger.debug("Subscription not found.");
             return;
         }
 

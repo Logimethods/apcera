@@ -49,12 +49,12 @@ public class CamelNatsAdapter {
 	public boolean onNatsInitialized() {	
 		
 		if(adapterType == AdapterType.PRODUCER){
-			logger.info("Received NATS producer onInitialized event");
+			logger.debug("Received NATS producer onInitialized event");
 			if (natsProducer.getStartupLatch() != null)
 				natsProducer.getStartupLatch().countDown();
 		}
 		else if(adapterType == AdapterType.CONSUMER){
-			logger.info("Received NATS consumer onInitialized event");
+			logger.debug("Received NATS consumer onInitialized event");
 			subscribe();	        
 	        if (natsConsumer.getStartupLatch() != null)
 	        	natsConsumer.getStartupLatch().countDown();
@@ -89,7 +89,7 @@ public class CamelNatsAdapter {
 	
 	public void onNATSMessage(Message msg) {
 				
-		logger.info("Received NATS message: " + msg.toString());
+		logger.debug("Received NATS message: " + msg.toString());
 		
 		Exchange exchange = natsConsumer.getEndpoint().createExchange();
         exchange.getIn().setBody(msg);
@@ -120,7 +120,7 @@ public class CamelNatsAdapter {
 	    	 return;
 	     
 	     if(adapterType == AdapterType.CONSUMER){	
-	    	 logger.info("Shutting down NatsConnector (Consumer)");
+	    	 logger.debug("Shutting down NatsConnector (Consumer)");
 		     try {
 		    	 natsConnector.unsubscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic());
 		     } catch (Exception e) {
@@ -128,7 +128,7 @@ public class CamelNatsAdapter {
 		     }	
 	     }
 	     else if(adapterType == AdapterType.PRODUCER){	    	        
-	    	 logger.info("Shutting down NatsConnector (Producer): ");
+	    	 logger.debug("Shutting down NatsConnector (Producer): ");
 	     }
 	}
 
@@ -158,11 +158,11 @@ public class CamelNatsAdapter {
 	}
 
 	public void onReconnect(ConnectionEvent event) {
-	 	logger.info("Adapter Reconnected ", event.toString());		
+	 	logger.debug("Adapter Reconnected ", event.toString());		
 	}
 
 	public void onException(NATSException ex) {
-		logger.info("Adapter Exception ", ex.toString());	
+		logger.debug("Adapter Exception ", ex.toString());	
 		
 
 		if(adapterType == AdapterType.PRODUCER){	    	     
@@ -177,14 +177,14 @@ public class CamelNatsAdapter {
 	public void onDisconnect(ConnectionEvent event) {
 		
 		if(adapterType == AdapterType.PRODUCER){	
-			logger.info("Producer Disconnected ", event.toString());	
+			logger.debug("Producer Disconnected ", event.toString());	
 			if(natsProducer.getEndpoint().getNatsConfiguration().isCloudEnvironment()){
-				logger.info("Cloud Producer Disconnected ", event.toString());	
+				logger.debug("Cloud Producer Disconnected ", event.toString());	
 				try {
 					String natsServer = System.getenv(natsProducer.getEndpoint().getNatsConfiguration().getCloudURI()).replace("tcp:","nats:");
-					logger.info("Attempting to reconnect producer to NATS with nats URI: " + natsServer);
+					logger.debug("Attempting to reconnect producer to NATS with nats URI: " + natsServer);
 					natsConnector.reconnectCloudToNats(natsServer);
-					logger.info("Producer connected");
+					logger.debug("Producer connected");
 				} catch (Exception e) {
 					logger.error("Producer Can't connect to NATS");
 					e.printStackTrace();
@@ -192,15 +192,15 @@ public class CamelNatsAdapter {
 			}
 		 }
 		else if(adapterType == AdapterType.CONSUMER){	
-			logger.info("Consumer Disconnected ", event.toString());	
+			logger.debug("Consumer Disconnected ", event.toString());	
 			if(this.natsConsumer.getEndpoint().getNatsConfiguration().isCloudEnvironment()){
-				logger.info("Cloud Consumer Disconnected ", event.toString());	
+				logger.debug("Cloud Consumer Disconnected ", event.toString());	
 				try {
 					String natsServer = System.getenv(natsConsumer.getEndpoint().getNatsConfiguration().getCloudURI());
 					natsServer.replace("tcp:","nats:");
-					logger.info("Attempting to reconnect consumer to NATS with nats URI: " + natsServer);
+					logger.debug("Attempting to reconnect consumer to NATS with nats URI: " + natsServer);
 					natsConnector.reconnectCloudToNats(natsServer);
-					logger.info("Consumer connected");
+					logger.debug("Consumer connected");
 					subscribe();
 				} catch (Exception e) {
 					logger.error("Consumer Can't connect to NATS");
