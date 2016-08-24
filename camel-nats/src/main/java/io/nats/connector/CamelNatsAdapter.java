@@ -1,7 +1,6 @@
 package io.nats.connector;
 
 import java.util.Properties;
-import java.util.concurrent.ExecutorService;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.component.nats.NatsConstants;
@@ -32,7 +31,9 @@ public class CamelNatsAdapter {
 	public CamelNatsAdapter(NatsConsumer natsConsumer, Properties natsProperties, Logger logger) {
 		this.natsConsumer = natsConsumer;
 		this.adapterType = AdapterType.CONSUMER;
-		this.natsConnector = new NatsConnector(this, natsProperties, logger);
+		natsConnector = new NatsConnector(this, natsProperties, logger);
+		natsConnector.cloudEnvironment = 
+				natsConsumer.getEndpoint().getNatsConfiguration().isCloudEnvironment();
 		this.logger = logger;
 	}
 
@@ -41,9 +42,11 @@ public class CamelNatsAdapter {
 		this.logger = logger;
 		this.adapterType = AdapterType.PRODUCER;
 		this.natsConnector = new NatsConnector(this, natsProperties, logger);
+		natsConnector.cloudEnvironment = 
+				natsProducer.getEndpoint().getNatsConfiguration().isCloudEnvironment();
 	}
 	
-	public boolean onNatsInitialized(NatsConnector natsConnector, Logger logger) {	
+	public boolean onNatsInitialized() {	
 		
 		if(adapterType == AdapterType.PRODUCER){
 			logger.info("Received NATS producer onInitialized event");
@@ -52,7 +55,15 @@ public class CamelNatsAdapter {
 		}
 		else if(adapterType == AdapterType.CONSUMER){
 			logger.info("Received NATS consumer onInitialized event");
-	        try
+			subscribe();	        
+	        if (natsConsumer.getStartupLatch() != null)
+	        	natsConsumer.getStartupLatch().countDown();
+		}			
+	    return true;
+	}
+	
+	private void subscribe(){
+		  try
 	        {
 	        	if (ObjectHelper.isNotEmpty(natsConsumer.getEndpoint().getNatsConfiguration().getQueueName())) {
 	        		natsConnector.subscribe(natsConsumer.getEndpoint().getNatsConfiguration().getTopic(),
@@ -74,11 +85,6 @@ public class CamelNatsAdapter {
 	        	logger.error("Unable to subscribe");
 	        	natsConsumer.getExceptionHandler().handleException("Error during processing", e);
 	        }
-	        
-	        if (natsConsumer.getStartupLatch() != null)
-	        	natsConsumer.getStartupLatch().countDown();
-		}			
-	    return true;
 	}
 	
 	public void onNATSMessage(Message msg) {
@@ -146,7 +152,8 @@ public class CamelNatsAdapter {
 			natsConnector.flush();
 	    }
 	    catch (Exception e){
-	       	logger.error("Error with flush:  ", e);
+	       	logger.error("Error with flush:  ");
+	       	throw e;
 	    }		
 	}
 
@@ -159,7 +166,7 @@ public class CamelNatsAdapter {
 		
 
 		if(adapterType == AdapterType.PRODUCER){	    	     
-			ex.printStackTrace();
+			// Need to notify camel framework here
 		 }
 		else if(adapterType == AdapterType.CONSUMER){	    	     
 			natsConsumer.getExceptionHandler().handleException("Error during processing", ex);
@@ -168,7 +175,41 @@ public class CamelNatsAdapter {
 	}
 
 	public void onDisconnect(ConnectionEvent event) {
-		logger.info("Adapter Disconnected ", event.toString());		
+		
+		if(adapterType == AdapterType.PRODUCER){	
+			logger.info("Producer Disconnected ", event.toString());	
+			if(natsProducer.getEndpoint().getNatsConfiguration().isCloudEnvironment()){
+				logger.info("Cloud Producer Disconnected ", event.toString());	
+				try {
+					String natsServer = System.getenv(natsProducer.getEndpoint().getNatsConfiguration().getCloudURI()).replace("tcp:","nats:");
+					logger.info("Attempting to reconnect producer to NATS with nats URI: " + natsServer);
+					natsConnector.reconnectCloudToNats(natsServer);
+					logger.info("Producer connected");
+				} catch (Exception e) {
+					logger.error("Producer Can't connect to NATS");
+					e.printStackTrace();
+				}
+			}
+		 }
+		else if(adapterType == AdapterType.CONSUMER){	
+			logger.info("Consumer Disconnected ", event.toString());	
+			if(this.natsConsumer.getEndpoint().getNatsConfiguration().isCloudEnvironment()){
+				logger.info("Cloud Consumer Disconnected ", event.toString());	
+				try {
+					String natsServer = System.getenv(natsConsumer.getEndpoint().getNatsConfiguration().getCloudURI());
+					natsServer.replace("tcp:","nats:");
+					logger.info("Attempting to reconnect consumer to NATS with nats URI: " + natsServer);
+					natsConnector.reconnectCloudToNats(natsServer);
+					logger.info("Consumer connected");
+					subscribe();
+				} catch (Exception e) {
+					logger.error("Consumer Can't connect to NATS");
+					e.printStackTrace();
+				}
+				
+			}
+		 }		
+		
 	}
 
 	public void shutdown() {

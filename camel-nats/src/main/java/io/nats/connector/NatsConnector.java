@@ -3,6 +3,7 @@
 package io.nats.connector;
 
 import io.nats.client.*;
+import io.nats.client.Constants.ConnState;
 
 import java.util.Properties;
 
@@ -20,6 +21,7 @@ public class NatsConnector implements MessageHandler, Runnable {
     private ConnectionFactory 	connectionFactory = null;
     private Connection        	connection        = null;
 	private Object 				threadLock        = null;
+	public boolean 			cloudEnvironment = false;
 
     public NatsConnector(CamelNatsAdapter adapter, Properties props, Logger logger)
     {
@@ -43,7 +45,8 @@ public class NatsConnector implements MessageHandler, Runnable {
         {
         	camelNatsAdapter.onClose(event);
         }
-
+        
+        @Override 
         public void onException(NATSException ex)
         {           
         	logger.error("Asynchronous error: exception: {}",
@@ -73,7 +76,7 @@ public class NatsConnector implements MessageHandler, Runnable {
             return;
         }
         
-        camelNatsAdapter.onNatsInitialized(this, logger);
+        camelNatsAdapter.onNatsInitialized();
             
         running = true;
 
@@ -118,8 +121,24 @@ public class NatsConnector implements MessageHandler, Runnable {
         connectionFactory.setDisconnectedCallback(eh);
         connectionFactory.setExceptionHandler(eh);
         connectionFactory.setReconnectedCallback(eh);
+        if(cloudEnvironment ){
+        	connectionFactory.setReconnectAllowed(false);
+        }
         connection = connectionFactory.createConnection();
         logger.info("Connected to NATS cluster.");
+    }
+    
+    public void reconnectCloudToNats(String servers) throws Exception
+    {
+        //connectionFactory.setServers("nats://127.0.0.1:4333");
+        connectionFactory.setServers(servers);
+       
+        if (subscription != null){
+        	subscription = null;
+        }
+     
+        connection = connectionFactory.createConnection();
+        logger.info("Reconnected to URL :" + servers);
     }
 
     private void disconnectFromNats()

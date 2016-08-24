@@ -31,7 +31,7 @@ public class NatsConsumerTest extends CamelTestSupport {
 
     @EndpointInject(uri = "mock:result")
     protected MockEndpoint mockResultEndpoint;
-    //LoggingLevel level = LoggingLevel.INFO;
+    LoggingLevel level = LoggingLevel.INFO;
 
     @Test
     public void testConsumer() throws InterruptedException, IOException {

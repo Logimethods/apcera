@@ -1,1 +1,11 @@
+org\apache\camel\component\nats\NatsConsumer.class
+io\nats\connector\NatsConnector.class
+org\apache\camel\component\nats\NatsComponent.class
+org\apache\camel\component\nats\NatsEndpoint.class
+io\nats\connector\CamelNatsAdapter$AdapterType.class
+org\apache\camel\component\nats\NatsPropertiesConstants.class
 org\apache\camel\component\nats\NatsProducer.class
+io\nats\connector\CamelNatsAdapter.class
+io\nats\connector\NatsConnector$EventHandlers.class
+org\apache\camel\component\nats\NatsConstants.class
+org\apache\camel\component\nats\NatsConfiguration.class

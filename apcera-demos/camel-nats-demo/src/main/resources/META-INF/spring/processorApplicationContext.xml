@@ -12,10 +12,10 @@
             </setHeader>
             <bean id="ParceInputMessage" method="convert" ref="inputMessageConverter"/>
             <bean id="TraceInputMessage" method="trace" ref="tracer"/>
-            <to id="toNats" uri="nats://APCERA:NATS?topic=test_apcera"/>
+            <to id="toNats" uri="nats://APCERA:NATS?topic=test_apcera&amp;reconnect=false"/>
         </route>
         <route id="fromNatsToLog">
-            <from id="fromNATS" uri="nats://APCERA:NATS?topic=test_apcera&amp;queueName=test&amp;poolSize=10"/>
+            <from id="fromNATS" uri="nats://APCERA:NATS?topic=test_apcera&amp;queueName=test&amp;poolSize=2&amp;reconnect=false"/>
             <setHeader headerName="THREAD_NAME" id="_setHeader2">
                 <description>Set thread name into the header so we can trace thread name later in Apcera for demo purposes</description>
                 <simple>${threadName}</simple>

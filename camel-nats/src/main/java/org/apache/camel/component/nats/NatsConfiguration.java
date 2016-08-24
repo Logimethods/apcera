@@ -58,6 +58,7 @@ public class NatsConfiguration {
     private int poolSize = 1;
     
     private boolean cloudEnvironment = false;
+	private String cloudUri;
     /**
      * URLs to one or more NAT servers. Use comma to separate URLs when specifying multiple servers.
      */
@@ -225,11 +226,19 @@ public class NatsConfiguration {
         addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_VERBOSE, getVerbose());
         addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_PEDANTIC, getPedantic());
         addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_SSL, getSsl());
-        addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_RECONNECT, getReconnect());
         addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_MAX_RECONNECT_ATTEMPTS, getMaxReconnectAttempts());
         addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_RECONNECT_TIME_WAIT, getReconnectTimeWait());
         addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_PING_INTERVAL, getPingInterval());
         addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_DONT_RANDOMIZE_SERVERS, getNoRandomizeServers());
+        
+      //Do not automatically reconnect to the same uri in cloud environment
+        if(this.cloudEnvironment == true){
+            addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_RECONNECT, false);
+        }
+        else{
+            addPropertyIfNotNull(props, NatsPropertiesConstants.NATS_PROPERTY_RECONNECT, getReconnect());
+        }
+        	
         return props;
     }
 
@@ -254,5 +263,13 @@ public class NatsConfiguration {
 
 	public void setCloudEnvironment(boolean cloudEnvironment) {
 		this.cloudEnvironment = cloudEnvironment;
+	}
+
+	public void setCloudURI(String cloudUri) {
+		this.cloudUri = cloudUri;		
+	}
+	
+	public String getCloudURI() {
+		return this.cloudUri;
 	}
 }

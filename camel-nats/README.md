@@ -24,12 +24,12 @@ Maven users will need to add the following dependency to their pom.xml for this 
 <dependency>
     <groupId>com.logimethods.apcera</groupId>
     <artifactId>camel-nats</artifactId>
-    <version>2.18-SNAPSHOT</version>
+    <version>2.17.2</version>
 </dependency>
 
 ```
 
-The latest release uses camel-core version 2.18-SNAPSHOT as dependency.
+The latest release uses camel-core version 2.17.2 as dependency.
 Download component and build it using mvn install command from the top component source directory containing pom.xml 
 
 # URI format

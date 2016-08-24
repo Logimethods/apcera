@@ -76,8 +76,7 @@ public class NatsProducer extends DefaultProducer{
         startupLatch = new CountDownLatch(1);  
         
         Properties natsProperties = getEndpoint().getNatsConfiguration().createProperties();
-        natsAdapter = new CamelNatsAdapter(this, natsProperties, logger);
-        //connector = new NatsConnector(natsAdapter, natsProperties, logger);               
+        natsAdapter = new CamelNatsAdapter(this, natsProperties, logger);            
         executor = getEndpoint().createProducerExecutor();
         executor.submit((Runnable)natsAdapter.getConnector());      
        

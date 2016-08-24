@@ -54,7 +54,7 @@ public class NatsConsumerLoadTest extends CamelTestSupport {
             @Override
             public void configure() throws Exception {
                 from("direct:send").to("nats://localhost:4222?topic=test");
-                from("nats://localhost:4222?topic=test&queueName=test&poolSize=10").to(mockResultEndpoint);
+                from("nats://localhost:4222?topic=test&queueName=test&poolSize=1").to(mockResultEndpoint);
             }
         };
     }
