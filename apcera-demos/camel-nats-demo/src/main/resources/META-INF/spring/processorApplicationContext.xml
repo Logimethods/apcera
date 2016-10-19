@@ -2,7 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd        ">
     <bean class="com.logi.camel.Tracer" id="tracer" init-method="start"/>
-    <bean class="com.logi.camel.InputMessageConverter" id="inputMessageConverter"/>
     <camelContext id="tcpToNatsDemo" xmlns="http://camel.apache.org/schema/spring">
         <route id="fromSocketToNats">
             <from id="fromNetty" uri="netty4:tcp://0.0.0.0:9999?textline=true&amp;sync=false&amp;delimiter=LINE&amp;synchronous=false"/>
@@ -10,8 +9,7 @@
                 <description>Set thread name into the header so we can trace thread name later in Apcera for demo purposes</description>
                 <simple>${threadName}</simple>
             </setHeader>
-            <bean id="ParceInputMessage" method="convert" ref="inputMessageConverter"/>
-            <bean id="TraceInputMessage" method="trace" ref="tracer"/>
+            <bean id="TracePubMessage" method="trace" ref="tracer"/>
             <to id="toNats" uri="nats://APCERA:NATS?topic=test_apcera&amp;reconnect=false"/>
         </route>
         <route id="fromNatsToLog">

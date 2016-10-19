@@ -4,3 +4,4 @@
 .project
 .settings
 .cache-main
+/.apt_generated/

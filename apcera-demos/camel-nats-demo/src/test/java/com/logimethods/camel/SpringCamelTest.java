@@ -1,4 +1,4 @@
-package com.javacodegeeks.camel;
+package com.logimethods.camel;
 
 import junit.framework.TestCase;
 

@@ -1,16 +1,11 @@
 package com.logi.camel;
 
-
 import org.apache.camel.spring.Main;
 
-
-
 public class CamelSpringStarter extends Main{
-	
-	
+		
 	public static  void main(String args) throws Exception {
-		
-		
+				
 		CamelSpringStarter main = new CamelSpringStarter();
 		
 		main.setApplicationContextUri("processorApplicationContext.xml");
